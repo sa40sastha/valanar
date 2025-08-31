@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />  <title>AC Tools, Safety & Repair Guide — Sastha Software</title>
+  <style>
+  :root{
+    --brand-blue:#00cecb;
+    --brand-dark:#063a8a;
+    --accent:#007bff;
+    --bg:#f0f6ff;
+    --card:#ffffff;
+    --muted:#475569;
+    --radius:14px;
+    --maxw:1100px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:linear-gradient(180deg,var(--bg),#ffffff);
+    color:#03203c;
+    line-height:1.5;
+  }
+  header{
+    background:linear-gradient(90deg,var(--brand-blue),var(--brand-dark));
+    color:white;
+    padding:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    position:sticky;
+    top:0;
+    z-index:30;
+    box-shadow:0 4px 12px rgba(11,105,255,0.2);
+  }
+  .brand{display:flex;gap:10px;align-items:center}
+  .logo{
+    width:44px;height:44px;border-radius:10px;
+    background:rgba(255,255,255,0.15);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:16px
+  }
+  .brand h1{font-size:18px;margin:0}
+  .brand p{font-size:12px;margin:0;opacity:0.9}
+  .controls{display:flex;gap:8px;align-items:center}
+  .lang-btn,.print-btn{
+    border-radius:10px;padding:7px 12px;font-weight:600;
+    cursor:pointer;font-size:14px;
+  }
+  .lang-btn{background:var(--card);color:var(--brand-dark);border:none}
+  .print-btn{background:transparent;color:white;border:1px solid rgba(255,255,255,0.4)}
+  main{max-width:var(--maxw);margin:16px auto;padding:12px}
+  .grid{display:grid;grid-template-columns:260px 1fr;gap:16px}
+  @media(max-width:980px){.grid{grid-template-columns:1fr}}
+  nav.card{
+    background:var(--card);border-radius:var(--radius);padding:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+    position:sticky;top:70px;height:auto;max-height:80vh;overflow:auto
+  }
+  nav ul{list-style:none}
+  nav li{margin-bottom:6px}
+  nav a{
+    display:block;text-decoration:none;color:var(--brand-dark);
+    padding:8px 10px;border-radius:8px;font-weight:600
+  }
+  nav a:hover{background:rgba(11,105,255,0.08)}
+  article.card{
+    background:var(--card);border-radius:var(--radius);
+    padding:16px;box-shadow:0 4px 12px rgba(0,0,0,0.06)
+  }
+  h2.section-title{
+    display:flex;align-items:center;gap:8px;font-size:18px;margin:8px 0 14px
+  }
+  .heading-highlight{
+    background:linear-gradient(90deg,var(--brand-blue),var(--brand-dark));
+    color:white;padding:6px 12px;border-radius:999px;font-size:13px
+  }
+  .subtitle{color:var(--muted);margin-top:0}
+  .note{background:#f0f7ff;border-left:4px solid var(--brand-blue);padding:10px;border-radius:8px;margin:10px 0}
+  pre,code{background:#f8fbff;padding:6px;border-radius:6px;font-family:monospace}
+  .section{margin-bottom:18px}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:880px){.two-col{grid-template-columns:1fr}}
+  details summary{cursor:pointer;font-weight:600;padding:6px 0}
+  footer{
+    padding:14px;text-align:center;
+    background:linear-gradient(90deg,var(--brand-dark),var(--brand-blue));
+    color:white;margin-top:18px;border-top-left-radius:12px;border-top-right-radius:12px
+  }
+  /* Mobile optimization */
+  @media(max-width:600px){
+    header{flex-direction:column;align-items:flex-start;padding:10px}
+    .brand h1{font-size:16px}
+    .controls{width:100%;justify-content:flex-start}
+    .lang-btn,.print-btn{font-size:13px;padding:6px 10px}
+    article.card{padding:12px}
+  }
+  /* Print cleanup */
+  @media print{
+    header,.controls,nav,footer{display:none}
+    body{background:white;color:black}
+    article.card{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">ITI </div>
+      <div>
+        <h1>AC - AIR CONDITIONING</h1>
+        <p>TOOLS, SAFETY & REPAIR GUIDE </p>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="lang-btn" id="langToggle" aria-label="Toggle language">தமிழ்</button>
+    </div>
+  </header>
+ <main>
+
+      <article class="card" id="content">
+
+        <!-- ENGLISH BLOCK -->
+        <div id="ENGLISH">
+
+          <section id="safety" class="section">
+            <h2 class="section-title"><span class="heading-highlight">IMPORTANT SAFETY NOTES</span></h2>
+            <p class="subtitle">Before any inspection or work, read and obey these precautions. Safety first — never cut corners.</p>
+            <div class="note">
+              <ol>
+                <li><strong>Electrical hazard:</strong> Isolate power at the breaker and confirm with a voltage tester. If you are not qualified with mains electricity, call a licensed electrician or HVAC technician.</li>
+                <li><strong>Refrigerant handling:</strong> Recover refrigerant to proper cylinders — do not vent to atmosphere. Only certified technicians should handle refrigerants.</li>
+                <li><strong>Heavy lifting:</strong> Outdoor units and compressors are heavy; use two people or mechanical aids.</li>
+                <li><strong>PPE:</strong> Insulated gloves, safety goggles, dust mask, ear protection when required.</li>
+                <li><strong>Emergency:</strong> If you smell gas, burning, or see smoke — evacuate, cut power, and call emergency services / technician.</li>
+              </ol>
+            </div>
+          </section>
+  <section id="essentials" class="section">
+            <h2 class="section-title"><span class="heading-highlight">SECTION 1 — ESSENTIAL TOOLS (Hand tools + HVAC)</span></h2>
+            <p class="mini">A complete kit will let you perform effective diagnostics and many common repairs safely and quickly.</p>
+
+            <h3 style="margin-top:12px">A. Basic hand tools</h3>
+            <ul class="checklist">
+              <li>Screwdrivers: flat, Philips, tamper-proof bits</li>
+              <li>Pliers: needle-nose, lineman's, slip-joint</li>
+              <li>Adjustable wrenches, metric & imperial socket set</li>
+              <li>Allen/hex key set</li>
+              <li>Wire strippers, insulated crimpers</li>
+              <li>Torque driver (for sensitive fasteners)</li>
+            </ul>
+
+            <h3 style="margin-top:12px">B. Electrical & measurement tools</h3>
+            <ul class="checklist">
+              <li>True-RMS multimeter (voltage, continuity, resistance)</li>
+              <li>Clamp meter (AC current measurement)</li>
+              <li>Non-contact voltage tester</li>
+              <li>Megger / insulation resistance tester (motor insulation tests)</li>
+              <li>Tachometer (to measure motor RPM)</li>
+            </ul>
+
+            <h3 style="margin-top:12px">C. HVAC & refrigeration tools</h3>
+            <ul class="checklist">
+              <li>Manifold gauge set (low/high) with hoses rated for refrigerant</li>
+              <li>Vacuum pump (rotary vane recommended) with micron gauge</li>
+              <li>Refrigerant scales (for charging by weight)</li>
+              <li>Electronic leak detector (sniffer) and UV dye kit</li>
+              <li>Tubing cutter, flaring tool, swaging tool</li>
+              <li>Brazing torch with nitrogen purge (for brazed joints)</li>
+              <li>Refrigerant recovery machine (for licensed technicians)</li>
+            </ul>
+
+            <h3 style="margin-top:12px">D. Airflow & cleaning tools</h3>
+            <ul class="checklist">
+              <li>Coil brush, fin comb (straighten fins)</li>
+              <li>Wet/dry vacuum</li>
+              <li>Compressed air (low pressure) — caution with fins</li>
+              <li>Drain snake/brush and condensate pan cleaner</li>
+              <li>Manufacturer-approved coil cleaners</li>
+            </ul>
+
+            <h3 style="margin-top:12px">E. Consumables & spares</h3>
+            <ul class="checklist">
+              <li>Capacitors (various µF), contactors, overloads</li>
+              <li>Fan motors, blower wheels, belts</li>
+              <li>Filters (various sizes & MERV ratings)</li>
+              <li>Copper tubing, fittings, O-rings, flare nuts</li>
+              <li>Insulation (Armaflex), cable ties, heat shrink</li>
+            </ul>
+          </section>
+
+          <section id="electrical" class="section">
+            <h2 class="section-title"><span class="heading-highlight">ELECTRICAL & MEASUREMENT</span></h2>
+            <p class="mini">Electrical checks are the most common safe troubleshooting steps. Always verify power with a meter.</p>
+
+            <div class="two-col">
+              <div>
+                <h4>Voltage & supply checks</h4>
+                <ul class="checklist">
+                  <li>Confirm supply voltage at the unit matches nameplate ±10%.</li>
+                  <li>Check phase balance on three-phase systems.</li>
+                  <li>Inspect disconnect/fuse and contactor coil feed.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Motor & capacitor checks</h4>
+                <ul class="checklist">
+                  <li>Measure motor running current with clamp meter; compare to nameplate.</li>
+                  <li>Test start/run capacitor µF — replace if ±10% out of spec.</li>
+                  <li>Listen for motor hum; locked rotor draws very high starting current.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section id="hvac" class="section">
+            <h2 class="section-title"><span class="heading-highlight">HVAC — REFRIGERATION CONCEPTS</span></h2>
+            <p>Short primers and common diagnostic values to help decide when to call a certified technician.</p>
+            <h4>Compressor & refrigeration cycle</h4>
+            <p class="mini">Compressor raises refrigerant pressure and temperature; condenser rejects heat to ambient; expansion device meters refrigerant; evaporator absorbs indoor heat.</p>
+            <li><strong>Superheat:</strong> Difference between suction line vapor temperature and saturation temperature at suction pressure (used for proper charge).</li>
+              <li><strong>Subcooling:</strong> Difference between saturation temperature at condenser pressure and liquid line temperature (useful when charging by subcooling).</li>
+            </ul>
+          </section>
+
+          <section id="airflow" class="section">
+            <h2 class="section-title"><span class="heading-highlight">AIRFLOW & CLEANING</span></h2>
+            <p class="mini">Most cooling complaints are airflow related — filters and coils are common culprits.</p>
+            <ol>
+              <li>Check & replace filters regularly (monthly to 3 months depending on environment).</li>
+              <li>Inspect evaporator coil for dust/oil; clean with appropriate coil cleaner.</li>
+              <li>Ensure return & supply registers are not blocked; verify blower wheel condition.</li>
+            </ol>
+          </section>
+
+          <section id="consumables" class="section">
+            <h2 class="section-title"><span class="heading-highlight">CONSUMABLES & COMMON REPLACEMENTS</span></h2>
+            <ul class="checklist">
+              <li>Filters (disposable/washable) — stock popular sizes</li>
+              <li>Capacitors — several µF ratings and dual run-start caps</li>
+              <li>Contactors and relays for control circuits</li>
+              <li>Fan motors and belts for belt-drive blowers</li>
+              <li>Driers/receivers after any open-system repairs</li>
+            </ul>
+          </section>
+
+          <section id="checklist" class="section">
+            <h2 class="section-title"><span class="heading-highlight">SECTION 2 — QUICK MAINTENANCE CHECKLIST</span></h2>
+            <p class="mini">Routine schedules to reduce callouts and extend equipment life.</p>
+
+            <h4>Monthly</h4>
+            <ul class="checklist">
+              <li>Replace or clean filters</li>
+              <li>Visual inspection of indoor & outdoor units</li>
+              <li>Check drain line for clogs and clear</li>
+            </ul>
+
+            <h4>Every 3–6 months</h4>
+            <ul class="checklist">
+              <li>Clean evaporator coil and drain pan</li>
+              <li>Clean condenser coil and straighten bent fins</li>
+              <li>Check fan motor bearings and belts</li>
+            </ul>
+
+            <h4>Annually</h4>
+            <ul class="checklist">
+              <li>Check refrigerant pressure and adjust per manufacturer</li>
+              <li>Test capacitors and contactor operation</li>
+              <li>Verify thermostat calibration and sensors</li>
+              <li>Inspect ductwork for leaks (if applicable)</li>
+            </ul>
+          </section>
+
+          <section id="troubleshoot" class="section">
+            <h2 class="section-title"><span class="heading-highlight">SECTION 3 — TROUBLESHOOTING FLOW</span></h2>
+            <p class="mini">Stepwise checks from safe/easy to more advanced diagnostics. Stop and call a technician where required.</p>
+
+            <h4>1) System won't start</h4>
+            <ul class="checklist">
+              <li>Confirm breaker & disconnect are ON</li>
+              <li>Use non-contact tester then multimeter to confirm voltage</li>
+              <li>Check thermostat wiring and batteries</li>
+              <li>Inspect fuses and door interlocks</li>
+            </ul>
+
+            <h4>2) Compressor won't start (clicking/humming)</h4>
+            <ul class="checklist">
+              <li>Check contactor coil voltage</li>
+              <li>Test start/run capacitor µF</li>
+              <li>Measure start current — locked rotor -> very high current</li>
+              <li>If locked, compressor replacement by a certified technician is likely</li>
+            </ul>
+
+            <h4>3) Poor cooling</h4>
+            <ul class="checklist">
+              <li>Verify airflow (filters, blower wheel, vents)</li>
+              <li>Check evaporator & condenser cleanliness</li>
+              <li>Measure refrigerant pressures (may indicate leak or restriction)</li>
+            </ul>
+
+            <h4>4) Ice on evaporator</h4>
+            <ul class="checklist">
+              <li>Low airflow (dirty filters, stalled blower)</li>
+              <li>Low refrigerant charge — may need leak check</li>
+              <li>Stuck expansion device or very low ambient condition</li>
+            </ul>
+          </section>
+
+          <section id="repairs" class="section">
+            <h2 class="section-title"><span class="heading-highlight">SECTION 4 — COMMON REPAIR PROCEDURES (HIGH LEVEL)</span></h2>
+
+            <h4>A. Filter replacement (safe for most users)</h4>
+            <ol>
+              <li>Turn system off at thermostat and breaker</li>
+              <li>Open filter access, remove old filter and install new with correct airflow arrow</li>
+              <li>Record date in maintenance log</li>
+            </ol>
+
+            <h4>B. Cleaning condenser (outdoor unit)</h4>
+            <ol>
+              <li>Turn OFF at outdoor disconnect and breaker</li>
+              <li>Remove shroud, brush debris, use coil cleaner and rinse inside→out</li>
+              <li>Straighten fins with fin comb if necessary</li>
+            </ol>
+ <h4>C. Evaporator cleaning (indoor)</h4>
+            <ol>
+              <li>Power off, remove access panel</li>
+              <li>Use manufacturer-approved coil cleaner and wet/dry vacuum for pan</li>
+              <li>If coil heavily soiled, consider professional deep clean</li>
+            </ol>
+
+            <h4>D. Replacing start/run capacitor (trained DIY)</h4>
+            <ol>
+              <li>Power off and verify no voltage</li>
+              <li>Discharge capacitor safely (use insulated tool and resistor method)</li>
+              <li>Note wiring positions; replace with same µF and equal-or-higher voltage rating</li>
+            </ol>
+
+            <h4>E. Replacing contactors/relays</h4>
+            <ol>
+              <li>Replace with equal rating; check pitted contacts and wiring</li>
+              <li>Tighten terminals and confirm mechanical operation</li>
+            </ol>
+
+            <h4>F. Fan/motor replacement</h4>
+            <ol>
+              <li>Verify motor nameplate (HP, RPM, voltage); remove assembly</li>
+              <li>Label wires; install matching motor and balance fan wheel</li>
+              <li>Test current draw and vibration</li>
+            </ol>
+
+            <h4>G. Brazing & sealing refrigerant lines (for trained technicians)</h4>
+            <ol>
+              <li>Purge with nitrogen when brazing to avoid oxidation</li>
+              <li>Pressure test with dry nitrogen, repair, then vacuum to <500 microns</li>
+              <li>Recharge by weight and verify superheat/subcooling</li>
+            </ol>
+          </section>
+
+          <section id="refrigerant" class="section">
+            <h2 class="section-title"><span class="heading-highlight">REFRIGERANT RECOVERY, VACUUM & CHARGE (PROFESSIONAL)</span></h2>
+            <p class="mini">This section is for certified technicians — refrigerant handling is regulated and requires recovery equipment.</p>
+
+            <ol>
+              <li>Recover refrigerant into approved cylinder using recovery machine (do not vent).</li>
+              <li>Repair leaks (brazing/welding) while purging with nitrogen.</li>
+              <li>Pressure test the system with dry nitrogen at manufacturer test pressure (example: 300–500 psi depending on system).</li>
+              <li>Evacuate system with a vacuum pump to <500 microns (use micron gauge).</li>
+              <li>Charge refrigerant by weight with calibrated scales; verify pressures, superheat/subcooling per manufacturer specs.</li>
+              <li>Record refrigerant type, weight added, and readings in service log.</li>
+            </ol>
+
+            <div class="danger mini">
+              <strong>Legal/Safety:</strong> Never release refrigerant to atmosphere. Follow local laws and use certified recovery cylinders and trained personnel.
+            </div>
+          </section>
+
+          <section id="electricaldiag" class="section">
+            <h2 class="section-title"><span class="heading-highlight">SECTION 5 — ELECTRICAL DIAGNOSTICS</span></h2>
+            <ul class="checklist">
+              <li>Measure supply voltage at the unit and compare with nameplate.</li>
+              <li>Use clamp meter to measure running & starting currents.</li>
+              <li>Test capacitors — replace if outside ±10% of rated µF.</li>
+              <li>Inspect wiring for overheated insulation or loose terminations.</li>
+              <li>Verify safety devices and interlocks.</li>
+            </ul>
+          </section>
+  <section id="pressure" class="section">
+            <h2 class="section-title"><span class="heading-highlight">SECTION 6 — PRESSURE CLUES & QUICK REFERENCE</span></h2>
+            <ul class="checklist">
+              <li>Low suction & low head: possible undercharge (leak), compressor issue, or metering device fault.</li>
+              <li>Low suction & high head: restriction in liquid line orifice/tube or non-condensing</li>
+              <li>High suction & high head: overcharge or blocked condenser / high ambient</li>
+              <li>Always consult manufacturer target pressures for accurate diagnosis.</li>
+            </ul>
+          </section>
+
+          <section id="examples" class="section">
+            <h2 class="section-title"><span class="heading-highlight">SECTION 7 — TROUBLESHOOTING EXAMPLES & CASES</span></h2>
+
+            <h4>Example A — Indoor unit runs but no cooling</h4>
+            <ol>
+              <li>Check filter, evaporator coil, and blower operation.</li>
+              <li>Inspect outdoor unit — is compressor running? Is contactor engaged?</li>
+              <li>Check refrigerant suction & discharge pressures.</li>
+              <li>If compressor not running but contactor energised, test compressor windings and start components.</li>
+            </ol>
+
+            <h4>Example B — Outdoor fan runs, compressor does not</h4>
+            <ol>
+              <li>Check contactor, measure coil voltage and power to compressor.</li>
+              <li>Test start/run capacitor and hard start kit components.</li>
+              <li>High locked rotor current implies mechanical failure inside compressor.</li>
+            </ol>
+
+            <h4>Example C — Unit freezes frequently</h4>
+            <ol>
+              <li>Confirm airflow (filter, blower speed)</li>
+              <li>Check thermistor / thermostat placement</li>
+              <li>Check charge and metering device operation</li>
+            </ol>
+
+            <h4>Example D — Water leaking indoors</h4>
+            <ol>
+              <li>Inspect condensate drain trap and pipe for clogs</li>
+              <li>Check drain pan for cracks</li>
+              <li>Verify slope & condensate pump (if fitted)</li>
+            </ol>
+          </section>
+
+          <section id="partslist" class="section">
+            <h2 class="section-title"><span class="heading-highlight">SECTION 8 — COMMON PARTS & SPARES</span></h2>
+            <ul class="checklist">
+              <li>Air filters (various sizes & MERV ratings)</li>
+              <li>Start/run capacitors (single & dual run-start types)</li>
+              <li>Contactors, relays, fuses, overloads</li>
+              <li>Fan motors, blower wheels, belts</li>
+              <li>Expansion valves (TXV / capillary / orifice tubes)</li>
+              <li>Receiver/drier / filter driers</li>
+            </ul>
+          </section>
+
+          <section id="calltech" class="section">
+            <h2 class="section-title"><span class="heading-highlight">WHEN TO STOP & CALL A PROFESSIONAL</span></h2>
+            <ul class="checklist">
+              <li>Any suspected refrigerant leak or when evacuation/charging is required.</li>
+              <li>Compressor replacement or sealed-system major repairs.</li>
+              <li>High-voltage faults beyond simple capacitor/contact replacement.</li>
+              <li>When you are unsure — a technician prevents mistakes and legal issues.</li>
+            </ul>
+          </section>
+ <section id="glossary" class="section">
+            <h2 class="section-title"><span class="heading-highlight">GLOSSARY, RECORD LOG & FORMS</span></h2>
+            <p class="mini"><strong>Glossary</strong>: Compressor, Condenser, Evaporator, TXV (thermostatic expansion valve), Superheat, Subcooling, Locked rotor, Service valve, Drier.</p>
+            <p class="mini"><strong>Service log template</strong> (copy into book or digital record):</p>
+     </section>
+
+          <section id="faq" class="section">
+            <h2 class="section-title"><span class="heading-highlight">FREQUENTLY ASKED QUESTIONS (FAQ)</span></h2>
+
+            <h4>Q: Can I handle refrigerant charging myself?</h4>
+            <p class="mini">A: If you are not certified, do not handle refrigerant. Many countries require certification. Use a certified technician for recovery & charging.</p>
+
+            <h4>Q: My capacitor readings are slightly off — should I replace?</h4>
+            <p class="mini">A: Replace if more than ±10% out of spec, or if the capacitor shows bulging or leakage.</p>
+
+            <h4>Q: How often should I replace filters?</h4>
+            <p class="mini">A: Typical residential filters are every 1–3 months depending on environment. Higher particulate environments may need monthly changes.</p>
+          </section>
+
+        </div>
+
+        <!-- TAMIL BLOCK -->
+        <div id="TAMIL" style="display:none;">
+
+          <section id="safety_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">முக்கிய பாதுகாப்பு குறிப்புகள்</span></h2>
+            <p class="subtitle">எந்த ஆய்வோ அல்லது பணியோ ஆரம்பிக்கும்முன் இந்த முன்னெச்சரிக்கைகளை வாசித்து கடைபிடிக்கவும். பாதுகாப்பே முதன்மை.</p>
+            <div class="note">
+              <ol>
+                <li><strong>மின் ஆபத்தின் সতর্কம்:</strong> படையொட்டியில் மின்சாரம் துண்டித்து வோல்டேஜ் டெஸ்டரால் உறுதி செய்யவும். மின் வேலைகளில் தகுதி இல்லாவிட்டால் பெற்று இயல்பான மின்சார தொழில்நிபுணரை அணைபவரை அழைக்கவும்.</li>
+                <li><strong>குளிரூட்டும் வாயு கையாளுதல்:</strong> குளிரூட்டும் வாயுவை சிதலிக்கவோ சுற்றுப்புறத்திற்கு விடக்கூடாது — ஒப்புதல் பெற்ற சிசிளருக்கு மீட்டெடுக்கவும்.</li>
+                <li><strong>பெரிய பருமன் பொருட்களை தூக்குதல்:</strong> வெளிப்புற யூனிட் மற்றும் நெருக்கி போன்றவை கனமாக இருக்கும்; இரண்டு பேர் அல்லது உதவியான கருவிகளைப் பயன்படுத்தவும்.</li>
+                <li><strong>PPE:</strong> பாதுகாப்பு கண்ணாடி, ஒட்டுந் துணி கையுறை, தூசி முகமூடி மற்றும் கேட்டு பாதுகாப்பு அணியவும்.</li>
+                <li><strong>அவசரம்:</strong> வாயு வாசனை, கருகுதல் அல்லது புகை தோன்றின் அவசரமாக வெளியேறவும், மின்சாரத்தை துண்டிக்கவும் மற்றும் நிபுணரை அழைக்கவும்.</li>
+              </ol>
+            </div>
+          </section>
+  <section id="essentials_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">பகுதி 1 — அவசியமான கருவிகள் (கை கருவிகள் + HVAC)</span></h2>
+            <p class="mini">ஒரு முழுமையான கருவி தொகுப்பு பாதுகாப்பாகவும் விரைவாகவும் பல பழுதீடு மற்றும் பராமரிப்பு செய்ய உதவுகிறது.</p>
+
+            <h3 style="margin-top:12px">A. அடிப்படை கை கருவிகள்</h3>
+            <ul class="checklist">
+              <li>ஸ்க்ரூ டிரைவர்கள்: படி, பிலிப்ஸ், டாம்பர்-பூப்</li>
+              <li>பிளையர்ஸ்: நீடில்-மூக்கு, லைன்மேன், ஸ்லிப்-ஜாயிண்ட்</li>
+              <li>அட்ஜஸ்டபிள் ரெஞ்சுகள், மெட்ரிக் மற்றும் இன்சுணியல் சோக்கெட் செட்</li>
+              <li>அலென் / ஹெக்ஸ் கீ செட்</li>
+              <li>வயர் ஸ்டிரிப்பர்ஸ், இன்சுலேட்டட் கிரிம்பர்கள்</li>
+              <li>டார்க்﻿ டிரைவர் (நுட்பமான பிணைப்புகளுக்கு)</li>
+            </ul>
+
+            <h3 style="margin-top:12px">B. மின் & அளவீட்டு கருவிகள்</h3>
+            <ul class="checklist">
+              <li>ทรู-RMS மல்டிமீட்டர் (வோல்டேஜ், கன்டினியூட்டி, எதிர்ப்பு)</li>
+              <li>கிளாம்ப் மீட்டர் (AC காரண்ட்)</li>
+              <li>நான்-காண்டக்ட் வோல்டேஜ் டெஸ்டர்</li>
+              <li>மேக்கர் / இன்சுலேஷன் ரெஸிஸ்டன்ஸ் டெஸ்டர் (மோட்டார் இன்சுலேஷன் சோதனை)</li>
+              <li>டாசோமீட்டர் (மோட்டார் RPM காண)</li>
+            </ul>
+
+            <h3 style="margin-top:12px">C. HVAC & குளிர்ப்பணித் கருவிகள்</h3>
+            <ul class="checklist">
+              <li>மெனிபோல்டு கேஜ் செட் (லோ/ஹை) மற்றும் உயர் தர அபாரம்</li>
+              <li>வாக்யூம் பம்ப் (ரொட்டரி வேன் பரிந்துரைக்கப்படுகிறது) மற்றும் மைக்ரோன் கேஜ்</li>
+              <li>குளிரூட்டும் எடைக் கருவிகள் (சேமிக்கான வரைபடம்)</li>
+              <li>மின்-லீக் டெக்டர் மற்றும் UV டயை கிட்</li>
+              <li>டியூபிங் கடாவமைப்பு, ஃப்ளேர் மற்றும் ஸ்வேஜ் கருவிகள்</li>
+              <li>நைட்ட்ரோகன் பியூப் உடன் பிரேசிங் கருவி (பிரேஸிங் செயல்முறைக்கு)</li>
+            </ul>
+
+            <h3 style="margin-top:12px">D. காற்றோட்டம் & சுத்தம் கருவிகள்</h3>
+            <ul class="checklist">
+              <li>கோயில் புராஷ், ஃபின் கம்ப் (ப்ளூப்புகள் சரி செய்ய)</li>
+              <li>வெட்/டை வைக்கியம்</li>
+              <li>கம்ப்ரெஸ்ட் எயர் (தாழ்வான அழுத்தம் בלבד)</li>
+              <li>டிரேன் ஸ்நேக்/புராஷ் மற்றும் கன்டென்சேட் பேன் சுத்தம் கருவி</li>
+              <li>உற்பத்தியாளர் பரிந்துரைத்த கோயில் கிளீனர்</li>
+            </ul>
+
+            <h3 style="margin-top:12px">E. பரிமாற்ற பொருட்கள் & ஸ்பேர்</h3>
+            <ul class="checklist">
+              <li>கேபசிட்டர்கள் (பல்வேறு µF மதிப்புகள்), CONTACTOR கள், ஓவர்லோட்ஸ்</li>
+              <li>பேன்கள் மோட்டார்கள், ப்ளோவர் வீலுகள், பெல்டுகள்</li>
+              <li>ஃபில்டர்கள் (விதவிதமான அளவுகள் & MERV மதிப்புகள்)</li>
+              <li>கப்பர் குழாய்கள், ஃபிட்டிங்குகள், O-ரிங்குகள்</li>
+              <li>கட்டமைப்பு இன்சுலேஷன் (Armaflex), கேபிள் டை, ஹீட் ஷ்ரிங்க்</li>
+            </ul>
+          </section>
+  <section id="electrical_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">மின் & அளவீடு</span></h2>
+            <p class="mini">மின்சார சோதனைகள் பொதுவாக மிகவும் எளிதான மற்றும் பாதுகாப்பான முதல் படி. எப்போதும் மீட்டர் மூலம் மின்சாரத்தை உறுதிசெய்யவும்.</p>
+
+            <div class="two-col">
+              <div>
+                <h4>வோல்டேஜ் & சப்ளை சோதனைகள்</h4>
+                <ul class="checklist">
+                  <li>யூனிட்டின் பெய்பிளேட்டில் குறிப்பிடப்பட்ட வோல்டேஜ் ±10% உடன் பொருந்துகிறதா சரிபார்க்கவும்.</li>
+                  <li>மூன்று-பேஸ் அமைப்புகளில் வெப்பம்-பாலன்ஸை சரிபார்க்கவும்.</li>
+                  <li>டிஸ்கனெக்ட்/ஃபியூஸ் மற்றும் CONTACTOR கோல்களை சோதிக்கவும்.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>மோட்டார் & கேபசிட்டர் சோதனைகள்</h4>
+                <ul class="checklist">
+                  <li>கிளாம்ப் மீட்டரால் மோட்டார் ஓட்டக் கடத்தலை(அம்பர்) அளவிடவும்; பெய்ன்பிளேட்டுக்கேற்றவாறு ஒப்பீடு செய்யவும்.</li>
+                  <li>கேபசிட்டர் µF ஐ சோதிக்கவும் — ±10% உதிர்வுக்கு வெளியால் மாற்றவும்.</li>
+                  <li>மோட்டார் ஹம் என்னும் ஒலிகளை கவனிக்கவும்; லாக்டு ரோட்டர் அதிக தொடக்க மின்கடத்தலை இழக்கும்.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section id="hvac_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">HVAC — குளிரூட்டும் கோட்பாடுகள்</span></h2>
+            <p class="mini">குறுகிய விளக்கங்கள் மற்றும் பொதுவான மதிப்புகள் — எப்பொழுதெல்லாம் சான்றளிக்கபட்ட தொழில்நுட்ப நிபுணரை அணைக்க வேண்டும் என்பதைக் கூறும் எடுத்துக்காட்டுகள்.</p>
+
+            <h4>கம்ப்ரஸர் & சுழற்சி</h4>
+            <p class="mini">கம்ப்ரஸர் குளிரூட்டும் வாயுவின் அழுத்தத்தையும் வெப்பநிலையையும் அதிகரிக்கிறது; கண்டென்சர் வெளியாற்றும் வெப்பத்தை வெளியே உடையிடுகிறது; விரிவாக்கம் சாதனம் குளிரூட்டுகின்ற பகுதிக்கு வாயுவை அளிக்கிறது; இவை ஒன்றாகவே குழாயடை சுழற்சி செய்கிறது.</p>
+
+            <h4>சூப்பர்ஹீட் & சப்கூலிங்</h4>
+            <ul class="checklist">
+              <li><strong>சூப்பர்ஹீட்:</strong> சச்சூரேசன் வெப்பநிலையத்தையும் சக்கன் லைன் வெப்பநிலையின் மாறுபாடு — சரியான சார்ஜ் நிர்ணயத்தில் பயன்படுத்தப்படும்.</li>
+              <li><strong>சப்கூலிங்:</strong> கண்டென்சர் அழுத்தத்தில் சச்சுரேஷன் வெப்பநிலையும் திரவ்கடாயின் வெப்பநிலையின்மீது இருக்கும் வித்தியாசம் — சப்கூலிங் மூலம் சார்ஜ் சரிபார்க்கலாம்.</li>
+            </ul>
+          </section>
+
+          <section id="airflow_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">காற்றோட்டம் & சுத்தம்</span></h2>
+            <p class="mini">பல கூலிங் பிரச்சினைகளும் காற்றோட்டத்தினால் உருவாகும் — ஃபில்டர்கள் மற்றும் கோயில்கள் சாவகாரிகள் ஆகும்.</p>
+            <ol>
+              <li>ஃபில்டர்களை ஒழுங்காக மாற்றவும் (மாதாந்திரம் அல்லது 3 மாதம்).</li>
+              <li>எவாபோரேட்டர் கோயிலை சோதித்து சுத்தம் செய்யவும்.</li>
+              <li>ரிட்டர்ன் மற்றும் சப்ளை வென்ட்களை தடை செய்யாதீர்கள்; ப்ளோவர் வீலை பராமரிக்கவும்.</li>
+            </ol>
+          </section>
+
+          <section id="consumables_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">பரிமாற்றப் பொருட்கள் & பொதுவான மாற்றங்கள்</span></h2>
+            <ul class="checklist">
+              <li>ஃபில்டர்கள் (விதவிதமான அளவுகள்)</li>
+              <li>கேபசிட்டர்கள் — பல µF மதிப்புகள்</li>
+              <li>CONTACTOR கள், ரிலேஸ், ஃபியூஸ்</li>
+              <li>ஃபேன் மோட்டார்கள் மற்றும் பெல்டுகள்</li>
+              <li>டையர்/ரெசீவர் பதிப்பு</li>
+            </ul>
+          </section>
+  <section id="checklist_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">பகுதி 2 — பராமரிப்பு சரிபார்ப்பட்டியல்</span></h2>
+            <p class="mini">அடிக்கடி பராமரிப்பு செய்தால் அழைப்பு எண்ணிக்கைகள் குறைந்து ஏதிர்கால வாழ்நாள் நீடிக்கும்.</p>
+
+            <h4>மாதாந்திரம்</h4>
+            <ul class="checklist">
+              <li>ஃபில்டர்கள் சுத்தம் / மாற்று</li>
+              <li>அறை மற்றும் வெளிப்புற யூனிட்களில் கண்ணோட்ட ஆய்வு</li>
+              <li>டிரேன் லைனை சுத்தம் செய்யவும்</li>
+            </ul>
+
+            <h4>ஒவ்வொரு 3–6 மாதங்களிலும்</h4>
+            <ul class="checklist">
+              <li>எவாபோரேட்டர் கோயிலும் டிரேன் பானையும் சுத்தம் செய்க</li>
+              <li>கண்டென்சர் கோயிலை சுத்தம் செய்து இறக்கிகள் சரிசெய்க</li>
+              <li>பேன்கள் மோட்டார் உள் அங்கங்கள் மற்றும் பெல்டுகளை சோதிக்கவும்</li>
+            </ul>
+
+            <h4>ஆண்டு தோறும்</h4>
+            <ul class="checklist">
+              <li>குளிரூட்டும் அழுத்தத்தை உற்பத்தியாளர் வழிகாட்டுதலுக்கு ஏற்ப சோதிக்கவும்</li>
+              <li>கேபசிட்டர்கள் மற்றும் CONTACTOR செயல்பாட்டை சோதிக்கவும்</li>
+              <li>தெர்மோஸ்டாட் மற்றும் சென்சார்கள் சரிபார்க்கவும்</li>
+            </ul>
+          </section>
+
+          <section id="troubleshoot_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">பகுதி 3 — பிழையல்லறிக்கை ஓட்டம்</span></h2>
+            <p class="mini">பாதுகாப்பான மற்றும் எளிய சோதனைகளில் இருந்து தொடங்கி மேலதிக தொடர் சோதனைகள் வரை. அவசியம் தொழில்நிபுணரை அழைக்கவேண்டும் என்றால் நிறுத்தவும்.</p>
+
+            <h4>1) இயங்கு தொடங்குதல் இல்லை</h4>
+            <ul class="checklist">
+              <li>பிரேக்கர் மற்றும் டிஸ்கனெக்ட் ஆனது ON ஆக உள்ளதா பாருங்கள்</li>
+              <li>நான்-காண்டக்ட் டெஸ்டர் மற்றும் மல்டிமீட்டர் மூலம் மின்சாரம் சோதிக்கவும்</li>
+              <li>தெர்மோஸ்டாட் வயர்கள் மற்றும் பேட்டரிகளை சோதிக்கவும்</li>
+              <li>ஃபியூஸ் மற்றும் கதவு இடைமுகத்தைக் கணக்கிடவும்</li>
+            </ul>
+
+            <h4>2) கம்ப்ரஸர் தொடங்காது (கிளிக்/ஹம்)</h4>
+            <ul class="checklist">
+              <li>CONTACTOR கோல் வோல்டேஜ் சோதிக்கவும்</li>
+              <li>ஸ்டார்ட்/ரன் கேபசிட்டர் µF சோதிக்கவும்</li>
+              <li>அருந்து(ஆரம்ப) மின் தடவை சோதிக்கவும் — லாக்டு ரோட்டர் அதிக தொடக்க மின்கடத்தல் தரும்</li>
+              <li>இணைப்பிலுள்ள தொழில்நுட்ப நிபுணரை அணைக்கவும்</li>
+            </ul>
+
+            <h4>3) சலனமற்ற குளிர்</h4>
+            <ul class="checklist">
+              <li>காற்றோட்டம் சரிபார்க்கவும் (ஃபில்டர், ப்ளோவர்)</li>
+              <li>காயில் மற்றும் கண்டென்சர் சுத்தமாக உள்ளதா பாருங்கள்</li>
+              <li>குளிரூட்டும் அழுத்தம் அளவிடவும் (சோர்வு அல்லது தடையாக இருக்கலாம்)</li>
+            </ul>
+
+            <h4>4) எவாப்போரேட்டர் மேல் உறைச்சல்</h4>
+            <ul class="checklist">
+              <li>காற்றோட்டம் குறைவு (அழுக்கான ஃபில்டர், முடக்கிய ப்ளோவர்)</li>
+              <li>குளிரூட்டும் சார்ஜ் குறைவு — லீக் சோதனை செய்யவும்</li>
+              <li>மீறுதலான சூழ்நிலை அல்லது விரிவாக்க சாதனத்தில் பிழை</li>
+            </ul>
+          </section>
+
+          <section id="repairs_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">பகுதி 4 — பொதுவான பழுப்பு செயல்முறை</span></h2>
+
+            <h4>A. ஃபில்டர் மாற்றம் (பயனர் தானாக செய்யலாம்)</h4>
+            <ol>
+              <li>சிஸ்டத்தை தெர்மோஸ்டாட் மற்றும் பிரேக்கரில் கூறு OFF செய்யவும்</li>
+              <li>ஃபில்டர் பெட்டியை திறந்து பழைய ஃபில்டரை ஆம் வெளியே எடுத்துக் கொண்டு புதியவை வைக்கவும் (அபசுரம் அம்பெரில் ஊசல்)</li>
+              <li>பராமரிப்பு பதிவில் தேதி பதிவு செய்யவும்</li>
+            </ol>
+
+            <h4>B. வெளிப்புற யூனிட் கண்டென்சர் சுத்தம்</h4>
+            <ol>
+              <li>வெளிப்புற டிஸ்கனெக்டை அணைத்து வோல்டேஜ் துண்டிக்கவும்</li>
+              <li>கோயில் தழுவல் அகற்றவும், கோயில் கிளீனர் வைக்கவும் மற்றும் குறைந்த அழுத்தத்தில் நீரில் கழுவவும்</li>
+              <li>ஃபின்களை ஃபின் கம்ப் கொண்டு சரிசெய்க</li>
+            </ol>
+
+            <h4>C. எவாப்போரேட்டர் கோயில் சுத்தம்</h4>
+            <ol>
+              <li>மின் துண்டித்து சர்வீஸ் பேனலை அகற்று</li>
+              <li>கோயில் கிளீனர் பயன்படுத்தி சுத்தம் செய்க; டிரேன் பானைக் களையவும்</li>
+              <li>கடுமையாக மாசுபட்டால் தொழில்நுட்ப நிபுணரை அழைக்கவும்</li>
+            </ol>
+
+            <h4>D. ஸ்டார்ட்/ரன் கேபசிட்டர் மாற்றுதல் (பயிற்சி பெற்றவர் மட்டும்)</h4>
+            <ol>
+              <li>மின் துண்டி, எந்த மின்தடையை இல்லாததா உறுதி செய்க</li>
+              <li>கேபசிட்டரை பாதுகாப்பாக ஒரு ரெசிஸ்டர் அல்லது இன்சுலேட்டட் டூல்லால் டிஸ்சார்ஜ் செய்யவும்</li>
+              <li>வயரிங் உடைந்திருந்தால் எடுத்துக் கொள்ளவும்; அதே µF மற்றும் சம்மார்த்தமான வோல்டேஜ் தரத்தை பயன்படுத்தி மாற்றவும்</li>
+            </ol>
+
+            <h4>E. CONTACTOR / RELAY மாற்றுதல்</h4>
+            <ol>
+              <li>மாற்றப்பட வேண்டிய CONTACTOR ஐ போன்ற மதிப்பீடு கொண்டு மாற்றவும்</li>
+              <li>டெர்மினல்களை இறுக்கவும் மற்றும் செயல்பாட்டைச் சரிபார்க்கவும்</li>
+            </ol>
+
+            <h4>F. பேன்யா/மோட்டார் மாற்றுதல்</h4>
+            <ol>
+              <li>மோட்டார் பெய்ன்பிளேட்டை உறுதி செய்து பொருத்தவும்</li>
+              <li>வயருகளை லேபல் செய்து புதிய மோட்டாரை பொருத்தவும்</li>
+              <li>மின்னோட்டம் மற்றும் அதிர்வு சோதனை நடத்தவும்</li>
+            </ol>
+
+            <h4>G. பிரேசிங் & குழாய் சேமிப்பு (பொருத்தமற்றவர்கள் வேண்டாம்)</h4>
+            <ol>
+              <li>பிரேசிங் செய்வதற்கு முன்னர் நைட்ட்ரோகனுடன் ப்யூர்ஜ் செய்யவும்</li>
+              <li>தையர் செய்யும் போது உற்பத்தியாளர் பரிந்துரைத்த அழுத்தத்தில் நைட்ரோகன் கொண்டு சோதனை செய்க</li>
+              <li>வாக்யூம் செய்து µமிக்ரான் நிலைக்கு (<500 µm) கொண்டு சென்று சரியான அளவு வாயு நிரப்பவும்</li>
+            </ol>
+          </section>
+  <section id="refrigerant_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">குளிரூட்டும் வாயு மீட்பு, வாக்யூம் & நிரப்புதல் (தொழில்நுட்பர்கள் மட்டும்)</span></h2>
+            <p class="mini">இது சான்றளிக்கப்பட்ட தொழில்நுட்பர்களுக்காக — குளிரூட்டும் வாயு கையாளுவது கட்டுப்பட்டது மற்றும் மீட்பு உபகரணங்கள் அவசியம்.</p>
+
+            <ol>
+              <li>மீட்டவரி இயந்திரத்தைப் பயன்படுத்தி அங்கீகாரம் பெற்ற சிலிண்டருக்கு குளிரூட்டும் வாயுவை மீட்டெடு (ஏதும் வெளியே விடாதீர்கள்).</li>
+              <li>லீக்குகள் இருந்தால் பேஸிங்/மெக்கானிக்கல் சரி செய். நைட்ரோகனுடன் பியூர்ஜ் செய்யவும்.</li>
+              <li>உற்பத்தியாளர் அழுத்தத்தில் உலர் நைட்ரோகனுடன் சோதனை செய்து பின் வாக்யூம் செய்க.</li>
+              <li>வாக்யூம் செய்வதற்கு மைக்ரோன் கேஜ் கொண்டு <500 µm அடைய வெளியிடவும்.</li>
+              <li>எடை மூலம் குளிரூட்டும் வாயை நிரப்பி சப்பர்ஹீட்/சப்கூலிங் சோதனை செய்து பதிவு செய்யவும்.</li>
+            </ol>
+
+            <div class="danger mini">
+              <strong>சட்ட/பாதுகாப்பு:</strong> குளிரூட்டும் வாயுவை சுற்றுச்சூழலுக்கு விடகூடாது. உள்ளுரு சட்டங்களை பின்பற்றவும் மற்றும் சான்றளிக்கப்பட்ட தொழில்நுட்பர்களை பயன்படுத்தவும்.
+            </div>
+          </section>
+
+          <section id="electricaldiag_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">பகுதி 5 — மின் கண்டறிதல்</span></h2>
+            <ul class="checklist">
+              <li>யூனிட்டில் வழங்கப்படும் மின்சாரத்தை பெய்ன்பிளேட்டுடன் ஒப்பிடவும்.</li>
+              <li>கிளாம்ப் மீட்டர் கொண்டு ஓட்ட மாற்றத்தை அளவிடவும்.</li>
+              <li>கேபசிட்டர்களை சோதிக்கவும் — ±10% க்குப் போக்கினால் மாற்றவும்.</li>
+              <li>வயரிங் கடைகீழ் அல்லது கருகிய அடிசாரம் உள்ளதா என ஆய்வு செய்யவும்.</li>
+              <li>பாதுகாப்பு சாதனங்கள் மற்றும் இடைமுகங்களைச் சரிபார்க்கவும்.</li>
+            </ul>
+          </section>
+
+          <section id="pressure_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">பகுதி 6 — அழுத்த குறியீடுகள்</span></h2>
+            <ul class="checklist">
+              <li>குறைந்த சக்​ஷன் & குறைந்த ஹெட்: சோதனை செய்யும் போது அடிக்கடி குறைவான சார்ஜ் (லீக்) அல்லது கம்ப்ரஸர் சிக்கல் இருக்கும்.</li>
+              <li>குறைந்த சக்​ஷன் & அதிக ஹெட்: திரவக் குழாயில் தடையைப் பார்க்கவும் அல்லது கண்டென்சர் சரியான செயல்பாட்டில் இல்லை.</li>
+              <li>அதிக சக்​ஷன் & அதிக ஹெட்: ஓவர்சார்ஜ் அல்லது கண்டென்சர் தடுப்பு / சூடான பருவநிலை.</li>
+              <li>எப்பொழுதும் உற்பத்தியாளர் குறிப்பிட்ட இலக்கு அழுத்தங்களை பின்பற்றவும்.</li>
+            </ul>
+          </section>
+
+          <section id="examples_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">பகுதி 7 — உதாரணங்கள் & வழக்குகள்</span></h2>
+
+            <h4>உதாரணம் A — உள்ளக யூனிட் இயங்குகிறது ஆனால் குளிர் இல்லை</h4>
+            <ol>
+              <li>ஃபில்டர், எவாப்போரேட்டர் கோயில் மற்றும் ப்ளோவர் செயல்பாட்டை சோதிக்கவும்</li>
+              <li>வெளிப்புற யூனிட் — கம்ப்ரஸர் இயங்குகிறதா? CONTACTOR இல் електிரிக்கல் இருக்கிறதா?</li>
+              <li>சக்​ஷன் & டிஸ்சர்ஜ் அழுத்தங்களை சோதிக்கவும்</li>
+              <li>கம்ப்ரஸர் இயங்கவில்லை ஆனால் CONTACTOR செயலில் இருந்தால் கம்ப்ரஸர் உட்சூடு கோசங்களை சோதிக்கவும்</li>
+            </ol>
+
+            <h4>உதாரணம் B — வெளிப்புற ஃபேன் இயங்குகிறது, கம்ப்ரஸர் இல்லை</h4>
+            <ol>
+              <li>CONTACTOR மற்றும் அதன் கோல் வோல்டேஜ் சோதிக்கவும்</li>
+              <li>ஸ்டார்ட்/ரன் கேபசிட்டரை சோதிக்கவும்</li>
+              <li>இது இயந்திர உள் பங்கேற்பு தோல்வியைக் குறிக்கலாம்</li>
+            </ol>
+
+            <h4>உதாரணம் C — யூனிட் அடிக்கடி ஒதுக்குகிறது/ஐஸ் ஆகிறது</h4>
+            <ol>
+              <li>காற்றோட்டத்தை உறுதி செய்க (ஃபில்டர், ப்ளோவர்)</li>
+              <li>தெர்மோஸ்டாட் மற்றும் சென்சர்களை சோதிக்கவும்</li>
+              <li>சார்ஜ் மற்றும் விரிவாக்க சாதனம் செயல்பாட்டை சோதிக்கவும்</li>
+            </ol>
+
+            <h4>உதாரணம் D — உள்ளே நீர் நனைக்கும்</h4>
+            <ol>
+              <li>டிரேன் பாய்மா் மற்றும் பம்ப் சோதனை செய்க</li>
+              <li>டிரேன் பேன் உடைந்து இருக்கிறதா பார்க்கவும்</li>
+              <li>ஸ்லோப் சரி & கன்டென்சேட் பம்ப் சரிபார்க்கவும்</li>
+            </ol>
+          </section>
+
+          <section id="partslist_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">பகுதி 8 — பொதுவான பகுதிகள் & ஸ்பேர்</span></h2>
+            <ul class="checklist">
+              <li>ஃபில்டர்கள் (விதவிதமான அளவுகள்)</li>
+              <li>கேபசிட்டர்கள் (ஸ்டார்ட் & ரன்)</li>
+              <li>CONTACTOR கள், ரிலே, ஃபியூஸ்</li>
+              <li>பேன்கள் மோட்டார், பெல்டுகள்</li>
+              <li>EXPANSION VALVE (TXV) & ORIFICE TUBE</li>
+              <li>FILTER/DRIER மாற்றம்</li>
+            </ul>
+          </section>
+
+          <section id="calltech_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">தொழில்நுட்பரைக் அழைக்க வேண்டிய நேரம்</span></h2>
+            <ul class="checklist">
+              <li>குளிரூட்டும் வாயு லீக் சந்தேகம் அல்லது ஈவாக்யூம் & சார்ஜ் தேவைப்படும்போது</li>
+              <li>கம்ப்ரஸர் மாற்றம் அல்லது சீல்ட்-சிஸ்டம் பெரிய பழுது</li>
+              <li>உயர் மின்தடைகள் மற்றும் ஆபத்தான மின் பிழைகள்</li>
+              <li>நீங்கள் உறுதியாக இல்லாதபோது — தொழில்நுட்பரை அழைக்கவும்</li>
+            </ul>
+          </section>
+
+          <section id="glossary_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">அகராதி, பதிவு & படிவங்கள்</span></h2>
+            <p class="mini"><strong>அகராதி</strong>: கம்ப்ரஸர், கண்டென்சர், எவாப்போரேட்டர், TXV, சூப்பர்ஹீட், சப்கூலிங், லாக்டு ரோட்டர், சர்வீஸ் வால்வு, டையர்.</p>
+            <p class="mini"><strong>சேவை பதிவு வடிவம்</strong>:</p>
+     </section>
+
+          <section id="faq_t" class="section">
+            <h2 class="section-title"><span class="heading-highlight">அடிக்கடி கேட்கப்படும் கேள்விகள்</span></h2>
+
+            <h4>Q: நான் குளிரூட்டும் வாயு நிரப்பம் செய்யலாமா?</h4>
+            <p class="mini">A: நீங்கள் சான்று பெற்றவர் அல்லாவிட்டால் செய்ய வேண்டாம். பல நாடுகளில் இது சான்றிதழ் தேவையான பணியாகும். மீட்பு மற்றும் நிரப்பம் செய்ய சான்றளிக்கப்பட்ட தொழில்நுட்பரை அழைக்கவும்.</p>
+
+            <h4>Q: கேபசிட்டர் வாசிப்புகள் சிறிது மாறுபடுகிறன — மாற்ற வேண்டுமா?</h4>
+            <p class="mini">A: ±10% சீமையில் இருந்து வெளியாக இருந்தால் அல்லது கேபசிட்டர் மெடிக்கல் பாகங்கள் காட்டில் இருந்தால் மாற்ற வேண்டும்.</p>
+
+            <h4>Q: ஃபில்டரை எவ்வளவு அடிக்கடி மாற்ற வேண்டும்?</h4>
+            <p class="mini">A: பொதுவாக வீட்டுப் பயன்பாட்டில் 1–3 மாதங்களுக்கு மறு மாற்றம் பரிந்துரைக்கப்படுகிறது. தூசு அதிகமான இடங்களில் மாதாந்திர மாற்றம் தேவையாகலாம்.</p>
+          </section>
+
+        </div>
+
+        <!-- end TAMIL block -->
+
+      </article>
+    </div>
+  </main>
+
+  <footer> Sastha Software | Call : (+91) 6383003056</footer>
+
+  <script>
+    // Language toggle logic: full switch between English and Tamil blocks
+    const langBtn = document.getElementById('langToggle');
+    const EN = document.getElementById('ENGLISH');
+    const TA = document.getElementById('TAMIL');
+
+    // default: English visible, langBtn shows the language to switch TO
+    let current = 'EN';
+
+    // Set button label initial
+    function updateLangButton(){
+      langBtn.textContent = (current === 'EN') ? 'தமிழ்' : 'English';
+      langBtn.setAttribute('aria-pressed', current === 'TA');
+    }
+    updateLangButton();
+
+    langBtn.addEventListener('click', ()=>{
+      if(current === 'EN'){
+        EN.style.display = 'none';
+        TA.style.display = 'block';
+        current = 'TA';
+      } else {
+        TA.style.display = 'none';
+        EN.style.display = 'block';
+        current = 'EN';
+      }
+      updateLangButton();
+      // focus top for accessibility
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    // Smooth scroll from nav
+    document.querySelectorAll('nav a').forEach(a=>{
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        const id = this.getAttribute('href').slice(1);
+        // if in tamil mode, map id to corresponding tamil section ids where needed
+        const map = {
+          'safety':'safety',
+          'essentials':'essentials',
+          'electrical':'electrical',
+          'hvac':'hvac',
+          'airflow':'airflow',
+         'consumables':'consumables',
+          'checklist':'checklist',
+          'troubleshoot':'troubleshoot',
+          'repairs':'repairs',
+          'refrigerant':'refrigerant',
+          'electricaldiag':'electricaldiag',
+          'pressure':'pressure',
+          'examples':'examples',
+          'partslist':'partslist',
+          'calltech':'calltech',
+          'glossary':'glossary',
+          'faq':'faq'
+        };
+        // if tamil mode, find tamil section ids if available
+        let targetId = id;
+        if(current === 'TA'){
+          // append _t pattern used in tamil ids (e.g., safety -> safety_t)
+          if(document.getElementById(id + '_t')) targetId = id + '_t';
+        }
+        const el = document.getElementById(targetId);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // Keyboard L toggles language
+    document.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase() === 'l'){
+        langBtn.click();
+      }
+    });
+
+    // Accessibility: announce language change
+    function announce(msg){
+      const region = document.getElementById('announce');
+      if(region){
+        region.textContent = msg;
+      } else {
+        const div = document.createElement('div');
+        div.id = 'announce';
+        div.setAttribute('aria-live','polite');
+        div.style.position = 'absolute';
+        div.style.left = '-9999px';
+        document.body.appendChild(div);
+        div.textContent = msg;
+      }
+    }
+    // announce initial
+    announce('English content displayed. Press L or the language button to switch to Tamil.');
+  </script>
+</body>
+</html>

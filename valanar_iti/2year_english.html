@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ITI AC Mechanic - Year 2</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root{
+    --blue:#00cecb;
+    --deep:#063a8a;
+    --light:#f0f8ff;
+    --white:#ffffff;
+    --shadow: 0 6px 18px rgba(3,57,110,0.08);
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+  body{background:var(--light);color:var(--deep);-webkit-font-smoothing:antialiased}
+  header{background:var(--blue);color:var(--white);padding:18px 14px;text-align:center;position:sticky;top:0;z-index:100}
+  header h1{font-size:1.25rem;letter-spacing:.2px}
+  .container{max-width:1000px;margin:18px auto;padding:12px}
+  h2{color:var(--blue);margin:22px 0 10px;font-size:1.05rem;display:flex;align-items:center;gap:10px}
+  ul{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+  li.card{
+    background:var(--white);
+    border-radius:var(--radius);
+    padding:14px;
+    box-shadow:var(--shadow);
+    display:flex;
+    gap:14px;
+    align-items:center;
+    transition:transform .25s, background .25s;
+  }
+  li.card:hover{transform:translateY(-6px);background:#eaf3ff}
+  .icon{width:48px;height:48px;border-radius:10px;display:grid;place-items:center;font-size:20px;color:var(--white);flex-shrink:0}
+  .icon.blue{background:linear-gradient(135deg,var(--blue),var(--deep));animation:float 3s ease-in-out infinite}
+  .text{flex:1}
+  .muted{font-size:0.92rem;color:#27507a}
+  @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .small{font-size:0.94rem;color:#0b3b66}
+  footer{background:var(--deep);color:var(--white);text-align:center;padding:12px;margin-top:20px;border-top-left-radius:8px;border-top-right-radius:8px}
+  /* responsive */
+  @media (max-width:600px){
+    h2{font-size:1rem}
+    .icon{width:44px;height:44px}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1><i class="fa-solid fa-screwdriver-wrench"></i> ITI AC Mechanic — Year 2</h1>
+  </header>
+
+  <main class="container">
+    <h2><i class="fa-solid fa-book"></i> Subjects & Curriculum</h2>
+    <ul>
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-gears"></i></div>
+        <div class="text">
+          <div class="small"><strong>Advanced Refrigeration & Air Conditioning Systems</strong></div>
+          <div class="muted">Study of advanced cycle behavior, heat transfer, and component interaction.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <div class="text">
+          <div class="small"><strong>Compressor Maintenance & Servicing</strong></div>
+          <div class="muted">Overhaul procedures, lubrication, troubleshooting faults and vibration control.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-plug"></i></div>
+        <div class="text">
+          <div class="small"><strong>Electrical Control Circuits</strong></div>
+          <div class="muted">Control wiring, contactors, relays, motor starters and protection schemes.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-bolt"></i></div>
+        <div class="text">
+          <div class="small"><strong>Motors, Contactors & Relay Work</strong></div>
+          <div class="muted">Testing & replacement, star-delta, direct-on-line, capacitor start methods.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-temperature-high"></i></div>
+        <div class="text">
+          <div class="small"><strong>Central AC & VRF Systems</strong></div>
+          <div class="muted">Layout, controls, balancing, and maintenance of large-scale systems.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-building"></i></div>
+        <div class="text">
+          <div class="small"><strong>Cooling Load Calculations</strong></div>
+          <div class="muted">Heat gain estimation, sensible/latent loads, and basic selection of equipment.</div>
+        </div>
+      </li>
+    </ul>
+
+    <h2><i class="fa-solid fa-flask-vial"></i> Practical Training</h2>
+    <ul>
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-tools"></i></div>
+        <div class="text">
+          <div class="small"><strong>Large System Installation & Commissioning</strong></div>
+          <div class="muted">Field piping, brazing with purge, leak testing and system evacuation to deep vacuum.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-wrench"></i></div>
+        <div class="text">
+          <div class="small"><strong>Ductwork Fabrication & Maintenance</strong></div>
+          <div class="muted">Duct sizing, sealing, insulation and airflow balancing procedures.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-fan"></i></div>
+        <div class="text">
+          <div class="small"><strong>AHU / FCU Servicing</strong></div>
+          <div class="muted">Fan maintenance, coil cleaning, belt replacement and filter management.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-gauge-high"></i></div>
+        <div class="text">
+          <div class="small"><strong>Instrumentation & Recording</strong></div>
+          <div class="muted">Pressure, temperature logging, superheat/subcooling checks and test reports.</div>
+        </div>
+      </li>
+    </ul>
+
+    <h2><i class="fa-solid fa-shield-halved"></i> Safety & Best Practices</h2>
+    <ul>
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-user-shield"></i></div>
+        <div class="text">
+          <div class="small"><strong>PPE & Electrical Safety</strong></div>
+          <div class="muted">Use gloves, goggles, ear protection; isolate supply and follow lockout-tagout (LOTO).</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-recycle"></i></div>
+        <div class="text">
+          <div class="small"><strong>Refrigerant Recovery & Handling</strong></div>
+          <div class="muted">Safe recovery, cylinder handling, labeling and compliance with environmental rules.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-fire-extinguisher"></i></div>
+        <div class="text">
+          <div class="small"><strong>Hot Work & Brazing Safety</strong></div>
+          <div class="muted">Use nitrogen purge, fire watch, goggles, and maintain clear workspace.</div>
+        </div>
+      </li>
+    </ul>
+
+    <h2><i class="fa-solid fa-briefcase"></i> Career Opportunities</h2>
+    <ul>
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-building-circle-check"></i></div>
+        <div class="text">
+          <div class="small"><strong>HVAC Companies</strong></div>
+          <div class="muted">Installation, commissioning and service roles for commercial HVAC projects.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-industry"></i></div>
+        <div class="text">
+          <div class="small"><strong>Industrial Service Engineer</strong></div>
+          <div class="muted">Maintenance roles in factories, cold storage and process cooling plants.</div>
+        </div>
+      </li>
+
+      <li class="card">
+        <div class="icon blue"><i class="fa-solid fa-user-tie"></i></div>
+        <div class="text">
+          <div class="small"><strong>Entrepreneur / Service Center</strong></div>
+          <div class="muted">Start your own service business for residential & commercial clients.</div>
+        </div>
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    </span> Sastha Software | Call : (+91) 6383003056
+  </footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

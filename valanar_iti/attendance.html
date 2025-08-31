@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Attendance | Students & Staff</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --muted:#6b7280;
+      --text:#1f2937;
+      --brand:#ec4899; /* pink */
+      --brand-2:#db2777; /* darker pink */
+      --danger:#ef4444;
+      --warning:#f59e0b;
+      --ring: rgba(236,72,153,.35);
+      --border:#e5e7eb;
+      --radius:16px;
+    }*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.container{max-width:1100px; margin:20px auto; padding:16px}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:0 4px 20px rgba(0,0,0,.05);
+  overflow:hidden;
+}
+
+header.app{
+  display:flex; align-items:center; gap:14px; padding:18px 20px;
+  background:var(--brand);
+  color:#fff;
+}
+header.app .logo{width:46px; height:46px; border-radius:12px; display:grid; place-items:center; font-weight:700; background:var(--brand-2); color:#fff}
+header.app h1{font-size:18px; margin:0}
+header.app p{margin:2px 0 0; color:#ffe4f0; font-size:12px}
+
+.controls{display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:12px; padding:16px 20px; border-bottom:1px solid var(--border)}
+@media (max-width:900px){.controls{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.controls{grid-template-columns:repeat(2,1fr)}}
+
+.field{display:flex; flex-direction:column; gap:6px}
+.field label{font-size:12px; color:var(--muted)}
+.field input[type="date"], .field select, .field input[type="text"], .field input[type="time"]{
+  appearance:none; width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--border);
+  background:#fff; color:var(--text); outline:none;
+}
+.field input:focus, .field select:focus{box-shadow:0 0 0 4px var(--ring)}
+
+.tabs{display:flex; gap:8px; padding:12px 12px 0;}
+.tab-btn{cursor:pointer; border:1px solid var(--border); padding:10px 14px; border-radius:999px; font-weight:600; font-size:14px; background:#fff; color:var(--brand-2)}
+.tab-btn.active{background:var(--brand); color:#fff; border-color:var(--brand-2); box-shadow:0 0 0 4px rgba(236,72,153,.18)}
+
+.table-wrap{padding:12px;}
+.actions{display:flex; gap:8px; padding:0 12px 12px; flex-wrap:wrap}
+.btn{cursor:pointer; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:#fff; color:var(--text); font-weight:600}
+.btn.primary{background:var(--brand); color:#fff; border-color:var(--brand-2)}
+.btn.blue{background:#fce7f3; color:var(--brand-2); border-color:var(--brand-2)}
+.btn.red{background:#fee2e2; color:var(--danger); border-color:var(--danger)}
+
+table{width:100%; border-collapse:separate; border-spacing:0; border:1px solid var(--border); border-radius:14px; background:#fff}
+thead th{position:sticky; top:0; z-index:1; background:#fce7f3; text-align:left; font-size:12px; color:var(--brand-2); padding:10px; border-bottom:1px solid var(--border)}
+tbody td{padding:10px; border-bottom:1px solid var(--border); font-size:14px}
+tbody tr:last-child td{border-bottom:none}
+
+.mark{display:flex; align-items:center; gap:10px; justify-content:center}
+.mark input{width:18px; height:18px}
+
+.badge{padding:4px 8px; border-radius:999px; font-size:12px; border:1px solid var(--border)}
+.P{background:rgba(236,72,153,.12); color:var(--brand-2); border-color:var(--brand-2)}
+.A{background:rgba(239,68,68,.14); color:var(--danger); border-color:var(--danger)}
+.L{background:rgba(245,158,11,.14); color:var(--warning); border-color:var(--warning)}
+
+.table-scroll{overflow:auto; max-width:100%}
+
+@media print{
+  body{background:#fff; color:#000}
+  .controls, .tabs, .actions{display:none !important}
+  thead th{background:#f9fafb; color:#000}
+  table{border:1px solid #000}
+  tbody td, thead th{border-bottom:1px solid #000}
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <header class="app">
+        <div class="logo">ATT</div>
+        <div>
+          <h1>Attendance Register</h1>
+          <p>Students & Staff • Daily presence tracking</p>
+        </div>
+      </header><!-- Controls -->
+  <section class="controls">
+    <div class="field">
+      <label for="attDate">Date</label>
+      <input type="date" id="attDate" />
+    </div>
+    <div class="field">
+      <label for="session">Session</label>
+      <select id="session">
+        <option>FN</option>
+        <option>AN</option>
+        <option>Full Day</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="course">Course / Dept</label>
+      <select id="course">
+        <option>— Select —</option>
+        <option>B.Sc CS</option>
+        <option>B.Com</option>
+        <option>MECH</option>
+        <option>ECE</option>
+        <option>ADMIN</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="year">Year / Shift</label>
+      <select id="year">
+        <option>— Select —</option>
+        <option>I Year</option>
+        <option>II Year</option>
+        <option>III Year</option>
+        <option>Morning</option>
+        <option>Evening</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="section">Section</label>
+      <select id="section">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="search">Search Name/ID</label>
+      <input id="search" type="text" placeholder="Type to filter…" />
+    </div>
+  </section>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" data-target="#students">Students</button>
+    <button class="tab-btn" data-target="#staff">Staff</button>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button class="btn primary" id="allPresent">Mark All Present</button>
+    <button class="btn red" id="clearMarks">Clear Marks</button>
+    <button class="btn blue" onclick="window.print()">Print / Save PDF</button>
+  </div>
+
+  <!-- Students Table -->
+  <div class="table-wrap" id="students">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:90px">Roll No</th>
+            <th>Name</th>
+            <th style="width:120px; text-align:center">Mark</th>
+            <th style="width:120px">In</th>
+            <th style="width:120px">Out</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody id="studentBody">
+          <!-- Sample rows -->
+          <tr>
+            <td>CS001</td>
+            <td>Arun Kumar</td>
+            <td>
+              <div class="mark">
+                <label class="badge P"><input type="radio" name="s1" value="P"> P</label>
+                <label class="badge A"><input type="radio" name="s1" value="A"> A</label>
+                <label class="badge L"><input type="radio" name="s1" value="L"> L</label>
+              </div>
+            </td>
+            <td><input type="time" /></td>
+            <td><input type="time" /></td>
+            <td><input type="text" placeholder="Reason / notes"/></td>
+          </tr>
+          <tr>
+            <td>CS002</td>
+            <td>Bhuvana</td>
+            <td>
+              <div class="mark">
+                <label class="badge P"><input type="radio" name="s2" value="P"> P</label>
+                <label class="badge A"><input type="radio" name="s2" value="A"> A</label>
+                <label class="badge L"><input type="radio" name="s2" value="L"> L</label>
+              </div>
+            </td>
+            <td><input type="time" /></td>
+            <td><input type="time" /></td>
+            <td><input type="text" placeholder="Reason / notes"/></td>
+          </tr>
+          <tr>
+            <td>CS003</td>
+            <td>Charan</td>
+            <td>
+              <div class="mark">
+                <label class="badge P"><input type="radio" name="s3" value="P"> P</label>
+                <label class="badge A"><input type="radio" name="s3" value="A"> A</label>
+                <label class="badge L"><input type="radio" name="s3" value="L"> L</label>
+              </div>
+            </td>
+            <td><input type="time" /></td>
+            <td><input type="time" /></td>
+            <td><input type="text" placeholder="Reason / notes"/></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Staff Table -->
+  <div class="table-wrap" id="staff" style="display:none">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:100px">Emp ID</th>
+            <th>Name</th>
+            <th style="width:120px; text-align:center">Mark</th>
+            <th style="width:140px">Department</th>
+            <th style="width:120px">In</th>
+            <th style="width:120px">Out</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody id="staffBody">
+          <tr>
+            <td>EMP101</td>
+            <td>Prof. Devi</td>
+            <td>
+              <div class="mark">
+                <label class="badge P"><input type="radio" name="e1" value="P"> P</label>
+                <label class="badge A"><input type="radio" name="e1" value="A"> A</label>
+                <label class="badge L"><input type="radio" name="e1" value="L"> L</label>
+              </div>
+            </td>
+            <td>Computer Science</td>
+            <td><input type="time" /></td>
+            <td><input type="time" /></td>
+            <td><input type="text" placeholder="Reason / notes"/></td>
+          </tr>
+          <tr>
+            <td>EMP102</td>
+            <td>Mr. Natarajan</td>
+            <td>
+              <div class="mark">
+                <label class="badge P"><input type="radio" name="e2" value="P"> P</label>
+                <label class="badge A"><input type="radio" name="e2" value="A"> A</label>
+                <label class="badge L"><input type="radio" name="e2" value="L"> L</label>
+              </div>
+            </td>
+            <td>Admin</td>
+            <td><input type="time" /></td>
+            <td><input type="time" /></td>
+            <td><input type="text" placeholder="Reason / notes"/></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  </div>  <script>
+    // Date default to today
+    (function(){
+      const d = new Date();
+      const pad = n => String(n).padStart(2,'0');
+      const today = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+      document.getElementById('attDate').value = today;
+    })();
+
+    // Tabs switching
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    tabButtons.forEach(btn=>btn.addEventListener('click',()=>{
+      tabButtons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = btn.dataset.target;
+      document.querySelector('#students').style.display = target === '#students' ? 'block':'none';
+      document.querySelector('#staff').style.display    = target === '#staff'    ? 'block':'none';
+    }));
+
+    // Search filtering (by Name/ID)
+    const search = document.getElementById('search');
+    const filterRows = () => {
+      const q = search.value.toLowerCase();
+      ['studentBody','staffBody'].forEach(id=>{
+        const body = document.getElementById(id);
+        if(!body) return;
+        [...body.querySelectorAll('tr')].forEach(tr=>{
+          const text = tr.innerText.toLowerCase();
+          tr.style.display = text.includes(q) ? '' : 'none';
+        })
+      });
+    };
+    search.addEventListener('input', filterRows);
+
+    // Mark all present for visible tab
+    const markAll = (scopeId) => {
+      const radios = document.querySelectorAll(`#${scopeId} input[type=radio][value=P]`);
+      radios.forEach(r => { r.checked = true; });
+    };
+
+    const clearMarks = (scopeId) => {
+      const radios = document.querySelectorAll(`#${scopeId} input[type=radio]`);
+      radios.forEach(r => { r.checked = false; });
+      document.querySelectorAll(`#${scopeId} input[type=time], #${scopeId} input[type=text]`).forEach(i=>i.value='');
+    };
+
+    document.getElementById('allPresent').addEventListener('click', () => {
+      const active = document.querySelector('.tab-btn.active').dataset.target.replace('#','');
+      markAll(active);
+    });
+
+    document.getElementById('clearMarks').addEventListener('click', () => {
+      const active = document.querySelector('.tab-btn.active').dataset.target.replace('#','');
+      clearMarks(active);
+    });
+  </script></body>
+</html>

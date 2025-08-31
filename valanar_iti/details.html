@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Air Conditioning System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #e6f0ff, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #00cecb;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+    }
+    header h1 { margin: 0; font-size: 22px; }
+    header select {
+      margin-top: 8px;
+      padding: 6px;
+      border-radius: 5px;
+      border: none;
+      font-size: 14px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 15px;
+    }
+    .item {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      overflow: hidden;
+      transform: translateY(50px);
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 20px;
+    }
+    .number {
+      background: #00cecb;
+      color: white;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .icon {
+      font-size: 40px;
+      color: #00cecb;
+      flex-shrink: 0;
+    }
+    .preview {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .text-block h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #00cecb;
+    }
+    .text-block p {
+      margin: 0;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+    footer {
+      text-align: center;
+      padding: 12px;
+      background: #00cecb;
+      color: white;
+      margin-top: 20px;
+    }
+    /* Animations */
+    @keyframes fadeInUp {
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+  <!-- FontAwesome icons -->
+  <script src="https://kit.fontawesome.com/4d2d33eaf0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h1 id="pageTitle">Air Conditioning System</h1>
+    <select id="langSelect">
+      <option value="en">English</option>
+      <option value="ta">தமிழ்</option>
+    </select>
+  </header>
+
+  <div class="container" id="gallery"></div>
+
+  <footer>
+    Sastha Software | Call : (+91) 6383003056
+  </footer>
+
+  <script>
+    const folder = "ac/"; // optional images folder (ac/1.png, 2.png, etc)
+
+    const topics = [
+      {
+        icon: "fa-wind",
+        img: "1.png",
+        en: { heading: "Definition", desc: "Process of controlling temperature, humidity, purity, and air circulation in a space." },
+        ta: { heading: "வரையறை", desc: "வெப்பநிலை, ஈரப்பதம், தூய்மை மற்றும் காற்றோட்டத்தை கட்டுப்படுத்தும் செயல்முறை." }
+      },
+      {
+        icon: "fa-thermometer-half",
+        img: "2.png",
+        en: { heading: "Comfort Conditions", desc: "22–25 °C temperature, 40–60% relative humidity." },
+        ta: { heading: "வசதியான நிலைகள்", desc: "22–25 °C வெப்பநிலை, 40–60% சார்ந்த ஈரப்பதம்." }
+      },
+      {
+        icon: "fa-cogs",
+        img: "3.png",
+        en: { heading: "Components", desc: "Compressor, Condenser, Expansion device, Evaporator, Air filters & blower fan." },
+        ta: { heading: "கூறுகள்", desc: "சுருக்கி, உறைவி, விரிவாக்க சாதனம், ஆவியாக்கி, காற்று வடிகள் & ப்ளோவர் விசிறி." }
+      },
+      {
+        icon: "fa-project-diagram",
+        img: "4.png",
+        en: { heading: "Types of Air Conditioning", desc: "Window AC, Split AC, Central AC, Packaged AC." },
+        ta: { heading: "ஏர் கண்டிஷனிங் வகைகள்", desc: "ஜன்னல் ஏசி, ஸ்பிளிட் ஏசி, மைய ஏசி, பேக்கேஜ் ஏசி." }
+      },
+      {
+        icon: "fa-fan",
+        img: "5.png",
+        en: { heading: "Functions", desc: "Cooling, Dehumidification, Air circulation, Air purification, Heating (in some systems)." },
+        ta: { heading: "செயல்பாடுகள்", desc: "குளிர்ச்சி, ஈரப்பதம் நீக்கம், காற்றோட்டம், காற்று தூய்மை, வெப்பம் (சில முறைகளில்)." }
+      },
+      {
+        icon: "fa-industry",
+        img: "1.png",
+        en: { heading: "Applications", desc: "Homes, Offices, Hospitals, Theatres, Vehicles, Industries." },
+        ta: { heading: "பயன்பாடுகள்", desc: "வீடுகள், அலுவலகங்கள், மருத்துவமனைகள், திரையரங்குகள், வாகனங்கள், தொழிற்துறை." }
+      }
+    ];
+
+    const gallery = document.getElementById("gallery");
+    const langSelect = document.getElementById("langSelect");
+
+    function render(lang="en") {
+      gallery.innerHTML = "";
+      topics.forEach((topic, index) => {
+        const item = document.createElement("div");
+        item.className = "item";
+        item.style.animationDelay = `${index * 0.2}s`; 
+
+        const imgTag = topic.img ? `<img src="${folder + topic.img}" class="preview" alt="">` : "";
+
+        item.innerHTML = `
+          <div class="number">${index+1}</div>
+          <div class="icon"><i class="fas ${topic.icon}"></i></div>
+          ${imgTag}
+          <div class="text-block">
+            <h3>${topic[lang].heading}</h3>
+            <p>${topic[lang].desc.replace(/\n/g, "<br>")}</p>
+          </div>
+        `;
+        gallery.appendChild(item);
+      });
+    }
+
+    // Initial render
+    render("en");
+
+    // Language switch
+    langSelect.addEventListener("change", (e) => {
+      render(e.target.value);
+      document.getElementById("pageTitle").innerText = 
+        e.target.value === "en" ? "Air Conditioning System" : "குளிர்பதன முறை";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="1.png"> <!-- ✅ Add this line -->
+</head>
+  
+  <title>Sastha BSA</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background:#fff;
+      overflow:hidden;
+      font-family: system-ui, sans-serif;
+    }
+
+    /* ---- ZOOMING IMAGE ---- */
+    .zoom-image {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(.5);
+      animation: zoomOut 3s ease-out forwards;
+      z-index: 10;
+    }
+    .zoom-image img {
+      max-width: 90vw; max-height: 90vh;
+      display: block;
+    }
+    @keyframes zoomOut {
+      0%   { transform: translate(-50%,-50%) scale(.5); opacity:0; }
+      50%  { opacity:1; }
+      100% { transform: translate(-50%,-50%) scale(1); opacity:1; }
+    }
+
+    /* ---- BLOOD DROPS & STREAKS ---- */
+    .blood-drop, .blood-streak {
+      position: absolute;
+      border-radius: 50%;
+      background: crimson;
+      box-shadow: 0 0 10px red;
+    }
+    .blood-drop  { width:10px; height:10px; animation: drip 2s linear infinite; }
+    .blood-streak{ width:4px;  height:60px; animation: streak 5s linear infinite; opacity:.6; }
+
+    @keyframes drip   { 0%{top:-20px;opacity:1;} 100%{top:100vh;opacity:0;} }
+    @keyframes streak { 0%{top:-60px;opacity:.8;} 100%{top:100vh;opacity:0;} }
+
+    /* positions / delays */
+    .blood-drop:nth-child(2){left:15%;animation-delay:0s;}
+    .blood-drop:nth-child(3){left:35%;animation-delay:1s;}
+    .blood-drop:nth-child(4){left:55%;animation-delay:2s;}
+    .blood-drop:nth-child(5){left:75%;animation-delay:3s;}
+
+    .blood-streak:nth-child(6){left:25%;animation-delay:.5s;}
+    .blood-streak:nth-child(7){left:50%;animation-delay:1.5s;}
+    .blood-streak:nth-child(8){left:70%;animation-delay:2.5s;}
+
+    /* ---- EXPIRED SCREEN ---- */
+    #expired {
+      display:none;
+      height:100%;
+      width:100%;
+      background:#fff;
+      color:crimson;
+      text-align:center;
+      padding-top:40vh;
+      font-size:1.4rem;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- Center zooming image -->
+  <div class="zoom-image" id="splash">
+    <img src="1.png" alt="Sakotharan Logo">
+  </div>
+
+  <!-- Expired notice -->
+  <div id="expired">
+    This page is no longer available.
+  </div>
+
+  <script>
+  // === CONFIGURATION ===
+  const expiryStr = "19-Jul-2030";   // Put your deadline here (dd-MMM-yyyy)
+
+  // Parse dd-MMM-yyyy -> Date (set to 23:59:59 of that day)
+  function parseDdmmyyyy(str) {
+    const [d, mon, y] = str.split("-");
+    return new Date(`${d} ${mon} ${y} 23:59:59`);
+  }
+
+  const expiryDate = parseDdmmyyyy(expiryStr);
+  const today      = new Date();
+
+  if (today > expiryDate) {
+    // Show "no longer available" message
+    document.getElementById("expired").style.display = "block";
+    document.getElementById("splash").remove();  // Hide animation
+  } else {
+    // Still valid: play animation & redirect after 7 s
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 7000);
+  }
+  </script>
+</body>
+</html>

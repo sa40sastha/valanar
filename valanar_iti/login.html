@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #00cecb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+      header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background: linear-gradient(to right, white 98%, #00cecb 2%);
+    }
+
+    header img {
+      height: 85px;
+      animation: moveRight 99990s linear infinite;
+    }
+
+    @keyframes moveRight {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(20px); }
+    }
+
+    .header-text {
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .header-text h4 {
+      font-size: 34px;
+      margin: 0;
+      background: linear-gradient(90deg, #efbf04,#2a9df4, #00cecb, #efbf04);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: waveEffect 3s linear infinite;
+    }
+
+    @keyframes waveEffect {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .header-text h5 {
+      font-size: 12px;
+      margin: 0;
+      color: black;
+    }
+  
+    .login-container {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 320px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #00cecb;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover:enabled {
+      background-color: #00cecb;
+    }
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .help-container {
+      margin-top: 25px;
+      padding-top: 10px;
+      border-top: 1px solid #ddd;
+    }
+    .help-title {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+    .help-icons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    .help-icons a {
+      text-decoration: none;
+      color: #333;
+      font-size: 22px;
+      transition: 0.3s;
+    }
+    .help-icons a:hover {
+      color: #e63b60;
+      transform: scale(1.2);
+    }
+    @media (max-width: 360px) {
+      .login-container {
+        width: 90%;
+        padding: 15px;
+      }
+      .help-icons a {
+        font-size: 20px;
+      }
+    }
+  </style>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwgeR_jmrI5zSgo-IvIEW0OnAs_Aexw_ZhibBuw2hqtICnUjzYgogixjXpa_NXHflGf/exec";
+
+    // ✅ Check if already logged in
+    window.onload = function () {
+      const savedUser = localStorage.getItem("loggedInUser");
+      if (savedUser) {
+        window.location.href = "main_screen.html?mobile=" + savedUser;
+      }
+    };
+
+    function login() {
+      let mobile = document.getElementById("mobile").value.trim();
+      let password = document.getElementById("password").value.trim();
+      let errorMessage = document.getElementById("error-message");
+      let loginButton = document.getElementById("login-btn");
+
+      errorMessage.textContent = "";
+
+      if (mobile === "" || password === "") {
+        errorMessage.textContent = "Please enter both mobile number and password.";
+        return;
+      }
+
+      loginButton.disabled = true;
+      loginButton.textContent = "Please wait...";
+
+      fetch(API_URL, {
+        method: "POST",
+        body: new URLSearchParams({
+          action: "login",
+          mobile,
+          password
+        })
+      })
+        .then(res => res.text())
+        .then(data => {
+          if (data === "success") {
+            localStorage.setItem("loggedInUser", mobile); // ✅ Save user
+            window.location.href = "main_screen.html?mobile=" + mobile;
+          } else {
+            errorMessage.textContent = "Invalid mobile number or password!";
+            loginButton.disabled = false;
+            loginButton.textContent = "Login";
+          }
+        })
+        .catch(error => {
+          errorMessage.textContent = "Server error! Please try again.";
+          loginButton.disabled = false;
+          loginButton.textContent = "Login";
+        });
+    }
+  </script>
+</head>
+<body>
+  <div class="login-container">
+        <header>
+       <img src="book3.gif" alt="Logo">
+       <div class="header-text">
+      <h4>VALANAR - ITI </h4>
+      <h5>KURUVIKULAM THENKASI DISTRICT</h5>
+    </div></header>
+    
+    <h2>Login</h2>
+    <input type="text" id="mobile" placeholder="Mobile Number" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="login-btn" onclick="login()">Login</button>
+    <div id="error-message" class="error-message"></div>
+
+    <div class="help-container">
+      
+      <div class="help-title">May I Help You ?</div>
+       
+      
+<div class="help-icons">
+  <!-- New User Icon -->
+  <a href="v.html" title="User">
+    <i class="fas fa-user"></i>
+  </a>
+  
+  <a href="https://wa.me/916383003056?text=Hello%20Sastha%20Software%2C%20I%20need%20help." target="_blank" title="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  <a href="tel:+916383003056" title="Call Support">
+    <i class="fas fa-phone-alt"></i>
+  </a>
+  <a href="mailto:softwaresastha@gmail.com?subject=Help%20Needed" title="Email Support">
+    <i class="fas fa-envelope"></i>
+  </a>
+ 
+</div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>

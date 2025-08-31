@@ -1,0 +1,222 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sastha Software — Business Types Catalog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root{--blue:#0b69ff;--blue-dark:#0847b9;--bg:#f6f9ff;--card:#ffffff;--muted:#6b7280;--radius:12px;--maxw:1200px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;background:var(--bg);color:#0f172a}
+    .wrap{max-width:var(--maxw);margin:26px auto;padding:18px}
+    header{display:flex;align-items:center;gap:14px}
+    .mark{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;color:white;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--blue-dark));font-size:18px}
+    h1{margin:0;font-size:18px}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}.controls{display:flex;gap:10px;margin-top:18px;align-items:center;flex-wrap:wrap}
+.search{flex:1;min-width:200px}
+input[type="search"], select{width:100%;padding:10px;border-radius:10px;border:1px solid #e6eefc;background:white}
+.btn{padding:10px 14px;border-radius:10px;background:var(--blue);color:white;border:none;font-weight:600}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.card{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(11,105,255,0.06);display:flex;gap:12px;align-items:center}
+.icon{width:64px;height:64px;border-radius:12px;display:grid;place-items:center;color:white;font-size:24px}
+.meta h3{margin:0;font-size:16px}
+.meta p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+.chip{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef6ff;color:var(--blue);font-weight:600;font-size:12px}
+
+footer{margin-top:22px;text-align:center;color:var(--muted);font-size:13px}
+
+@media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.icon{width:52px;height:52px;font-size:20px}}
+@media (max-width:480px){.grid{grid-template-columns:1fr}.controls{flex-direction:column}}
+
+/* category colors */
+.school{background:linear-gradient(135deg,#ff8a00,#ff4d4d)}
+.college{background:linear-gradient(135deg,#6a5cff,#2b8fff)}
+.tuition{background:linear-gradient(135deg,#00c48c,#00a3ff)}
+.shop{background:linear-gradient(135deg,#ff6bb5,#ff8a4d)}
+.restaurant{background:linear-gradient(135deg,#ffb347,#ff7b7b)}
+.saloon{background:linear-gradient(135deg,#b18cff,#7b6bff)}
+.hospital{background:linear-gradient(135deg,#4dd3ff,#00a3ff)}
+.jewellery{background:linear-gradient(135deg,#ffd700,#ff8a00)}
+.service{background:linear-gradient(135deg,#7be7b9,#3bd6ff)}
+.manufacture{background:linear-gradient(135deg,#a7ffeb,#6ee7b7)}
+.transport{background:linear-gradient(135deg,#ff9f1c,#ff6f69)}
+.others{background:linear-gradient(135deg,#cfcfcf,#9e9e9e)}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="mark">SSS</div>
+      <div>
+        <h1>Sastha Software Service's</h1>
+            <p>No.1 Billing & Management Software
+  </p>
+    <p>Kalugumalai - 628552, Tamilnadu
+  </p>
+        <p>Call : (+91) 6383003056</p>
+     </div>
+
+    </header><div class="controls">
+  <div style="flex:1;min-width:220px" class="search"><input id="search" type="search" placeholder="Search business type (e.g. school, salon, jewellery)" /></div>
+  <div style="width:220px"><select id="category">
+    <option value="all">All categories</option>
+    <option value="education">Education</option>
+    <option value="retail">Retail & Food</option>
+    <option value="services">Services</option>
+    <option value="health">Health & Care</option>
+    <option value="industry">Industry & Transport</option>
+    <option value="others">Others</option>
+  </select></div>
+  <button class="btn" id="reset">Reset</button>
+</div>
+
+<div class="grid" id="grid">
+  <!-- Education -->
+  <div class="card" data-name="School" data-category="education">
+    <div class="icon school"><i class="fa-solid fa-school"></i></div>
+    <div class="meta"><h3>School</h3><p>Primary / Secondary schools — fees, admissions, salary & reports.</p></div>
+  </div>
+
+  <div class="card" data-name="College" data-category="education">
+    <div class="icon college"><i class="fa-solid fa-university"></i></div>
+    <div class="meta"><h3>College</h3><p>Degree colleges — fee structures, attendance and exam reports.</p></div>
+  </div>
+
+  <div class="card" data-name="Tuition Center" data-category="education">
+    <div class="icon tuition"><i class="fa-solid fa-chalkboard-user"></i></div>
+    <div class="meta"><h3>Tuition Center</h3><p>Small coaching classes — student tracking & monthly billing.</p></div>
+  </div>
+
+  <div class="card" data-name="Kindergarten" data-category="education">
+    <div class="icon school"><i class="fa-solid fa-child"></i></div>
+    <div class="meta"><h3>Kindergarten</h3><p>Pre-school management, attendance, and parent communication.</p></div>
+  </div>
+
+  <!-- Retail & Food -->
+  <div class="card" data-name="Retail Shop" data-category="retail">
+    <div class="icon shop"><i class="fa-solid fa-store"></i></div>
+    <div class="meta"><h3>Retail Shop</h3><p>POS, inventory, GST-ready invoices for shops and showrooms.</p></div>
+  </div>
+
+  <div class="card" data-name="Restaurant" data-category="retail">
+    <div class="icon restaurant"><i class="fa-solid fa-utensils"></i></div>
+    <div class="meta"><h3>Restaurant / Cafe</h3><p>Table billing, kitchen order tickets, daily sales reports.</p></div>
+  </div>
+
+  <div class="card" data-name="Jewellery" data-category="retail">
+    <div class="icon jewellery"><i class="fa-solid fa-gem"></i></div>
+    <div class="meta"><h3>Jewellery</h3><p>Weight-based billing, HSN/HUID support, old-ornament purchase.</p></div>
+  </div>
+
+  <div class="card" data-name="Pharmacy" data-category="retail">
+    <div class="icon hospital"><i class="fa-solid fa-prescription-bottle-medical"></i></div>
+    <div class="meta"><h3>Pharmacy</h3><p>Medicine inventory, batch expiry alerts, retail billing.</p></div>
+  </div>
+
+  <!-- Services -->
+  <div class="card" data-name="Salon" data-category="services">
+    <div class="icon saloon"><i class="fa-solid fa-scissors"></i></div>
+    <div class="meta"><h3>Salon / Spa</h3><p>Service catalog, appointments, membership billing.</p></div>
+  </div>
+
+  <div class="card" data-name="Auto Repair" data-category="services">
+    <div class="icon service"><i class="fa-solid fa-car-side"></i></div>
+    <div class="meta"><h3>Auto Repair</h3><p>Job cards, parts inventory and labour charge breakdown.</p></div>
+  </div>
+
+  <div class="card" data-name="Consultancy" data-category="services">
+    <div class="icon service"><i class="fa-solid fa-briefcase"></i></div>
+    <div class="meta"><h3>Consultancy / Freelance</h3><p>Service invoices, retainer billing and project tracking.</p></div>
+  </div>
+
+  <div class="card" data-name="Laundry" data-category="services">
+    <div class="icon service"><i class="fa-solid fa-shirt"></i></div>
+    <div class="meta"><h3>Laundry / Dryclean</h3><p>Order tickets, pick-up/delivery tracking and invoices.</p></div>
+  </div>
+
+  <!-- Health & Care -->
+  <div class="card" data-name="Hospital" data-category="health">
+    <div class="icon hospital"><i class="fa-solid fa-hospital"></i></div>
+    <div class="meta"><h3>Hospital / Clinic</h3><p>Patient records, billing, pharmacy & lab integrations.</p></div>
+  </div>
+
+  <div class="card" data-name="Dentist" data-category="health">
+    <div class="icon hospital"><i class="fa-solid fa-tooth"></i></div>
+    <div class="meta"><h3>Dentist</h3><p>Appointments, treatment history and billing per procedure.</p></div>
+  </div>
+
+  <!-- Industry & Transport -->
+  <div class="card" data-name="Manufacturing" data-category="industry">
+    <div class="icon manufacture"><i class="fa-solid fa-industry"></i></div>
+    <div class="meta"><h3>Manufacturing</h3><p>Stock, raw materials, production batches and invoicing.</p></div>
+  </div>
+
+  <div class="card" data-name="Transport" data-category="industry">
+    <div class="icon transport"><i class="fa-solid fa-truck-fast"></i></div>
+    <div class="meta"><h3>Transport & Logistics</h3><p>Waybills, freight charges, and shipment tracking.</p></div>
+  </div>
+
+  <!-- Others -->
+  <div class="card" data-name="Event Management" data-category="others">
+    <div class="icon others"><i class="fa-solid fa-calendar-check"></i></div>
+    <div class="meta"><h3>Event Management</h3><p>Quotations, advance booking and final billing.</p></div>
+  </div>
+
+  <div class="card" data-name="Education Consultancy" data-category="others">
+    <div class="icon others"><i class="fa-solid fa-earth-americas"></i></div>
+    <div class="meta"><h3>Education Consultancy</h3><p>Admission assistance, service invoices and follow-ups.</p></div>
+  </div>
+
+</div>
+
+<footer>
+  Sastha Software | Call : (+91) 6383003056</footer>
+
+<script>
+  const grid = document.getElementById('grid');
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const search = document.getElementById('search');
+  const category = document.getElementById('category');
+  const reset = document.getElementById('reset');
+
+  function applyFilters(){
+    const q = search.value.trim().toLowerCase();
+    const cat = category.value;
+    cards.forEach(c=>{
+      const name = c.dataset.name.toLowerCase();
+      const catId = c.dataset.category;
+      const matchQ = q === '' || name.includes(q);
+      const matchCat = cat === 'all' || (
+        cat === 'education' && catId === 'education'
+      ) || (
+        cat === 'retail' && (catId === 'retail')
+      ) || (
+        cat === 'services' && catId === 'services'
+      ) || (
+        cat === 'health' && catId === 'health'
+      ) || (
+        cat === 'industry' && catId === 'industry'
+      ) || (
+        cat === 'others' && catId === 'others'
+      );
+      c.style.display = (matchQ && matchCat) ? 'flex' : 'none';
+    })
+  }
+
+  search.addEventListener('input', applyFilters);
+  category.addEventListener('change', applyFilters);
+  reset.addEventListener('click', ()=>{search.value='';category.value='all';applyFilters();});
+</script>
+
+  </div>
+</body>
+</html>

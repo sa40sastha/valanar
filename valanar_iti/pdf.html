@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sastha ITI Tools Register - View Only</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 15px; background:white; margin:0; }
+  h2 { margin:10px 0; font-size:20px; color:white; text-align:center; }
+
+  /* Header info */
+  .header-info {
+    background: #007bff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 10px 0 20px;
+    font-size: 14px;
+    text-align: center;
+  }
+  .header-info p { margin: 4px 0; color: white; }
+
+  /* Filter Box */
+  .filter-box { text-align:center; margin: 10px 0 20px; }
+  select {
+    padding:8px 12px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:14px;
+    width: 80%;
+    max-width: 300px;
+  }
+
+  /* Product Grid */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 10px;
+  }
+  @media(max-width:768px){
+    .product-grid { grid-template-columns: 1fr; }
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    animation: fadeIn 0.6s ease;
+    page-break-inside: avoid;
+  }
+  .product-card img {
+    width: 250px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .product-card h3 { font-size: 18px; color: #007bff; margin: 6px 0; }
+  .product-card p { font-size: 14px; color: #444; margin: 4px 0; }
+
+  @keyframes fadeIn {
+    from { opacity:0; transform: scale(0.9);}
+    to { opacity:1; transform: scale(1);}
+  }
+
+  #loading { text-align:center; font-weight:bold; color:green; margin:10px; }
+
+  /* Print Styles */
+  @media print {
+    body { padding:0; }
+    #filterSelect, #printBtn, #loading { display: none; }
+    .header-info { background: #007bff; color:white; -webkit-print-color-adjust: exact; }
+    .product-grid { grid-template-columns: 1fr; }
+    .product-card { box-shadow:none; border:1px solid #ccc; margin:10px; }
+    .product-card img { width:300px; height:auto; }
+
+    /* Fixed footer on each page */
+    .print-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #007bff;
+    }
+  }
+
+  /* Print button */
+  #printBtn {
+    display:block;
+    margin: 10px auto;
+    background:#007bff;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    font-size:15px;
+    cursor:pointer;
+  }
+  #printBtn:hover { background:#0056b3; }
+</style>
+</head>
+<body>
+
+<!-- Top Trade & Staff Info -->
+<div id="headerInfo" class="header-info" style="display:none;"></div>
+
+<div class="filter-box">
+  <select id="filterSelect" onchange="applyFilter()">
+    <option value="">-- Show All Tools --</option>
+  </select>
+</div>
+
+<button id="printBtn" onclick="window.print()">🖨 Print / Save PDF</button>
+
+<div id="loading"> Loading Tools...</div>
+<div id="toolsGrid" class="product-grid"></div>
+<div id="toolDetail"></div>
+
+<!-- Print Footer -->
+<div class="print-footer">
+  Valanar-ITI Kuruvikulam Thenkasi District <br>
+  Trade : AC Tools Details
+</div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbzHnsH4q2uMUv2nUYFnBJAfVof1wYVMIfCHoEBFH9VdvnZaSconYPi79XQw8InhFJq6/exec";
+let allTools = [];
+
+function loadData() {
+  fetch(scriptURL)
+    .then(res => res.json())
+    .then(data => {
+      allTools = data;
+      if (data.length > 0) showHeader(data[0]); 
+      populateFilter(data);
+      renderTools(data);
+      document.getElementById("loading").style.display = "none";
+    })
+    .catch(err => {
+      document.getElementById("loading").innerText = "❌ Error loading data: " + err;
+    });
+}
+
+function showHeader(item) {
+  let headerDiv = document.getElementById("headerInfo");
+  headerDiv.innerHTML = `
+    <h2>VALANAR ITI KURUVIKULAM</h2>
+    <p><b>Trade:</b> ${item.tradeName} Tools Details</p>
+  `;
+  headerDiv.style.display = "block";
+}
+
+function populateFilter(data) {
+  let select = document.getElementById("filterSelect");
+  let names = [...new Set(data.map(item => item.toolNameEng).filter(n => n))].sort();
+  names.forEach(name => {
+    let opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    select.appendChild(opt);
+  });
+}
+
+function renderTools(tools) {
+  document.getElementById("toolDetail").innerHTML = ""; 
+  let cards = "";
+  tools.forEach(item => {
+    cards += `
+      <div class="product-card">
+        <img src="${item.image}" alt="${item.toolNameEng}">
+        <h3>${item.toolNameEng}</h3>
+        <p><b>Tamil:</b> ${item.toolNameTam}</p>
+        <p><b>Specifications:</b> ${item.specs}</p>
+      </div>
+    `;
+  });
+  document.getElementById("toolsGrid").innerHTML = cards;
+}
+
+function renderDetail(item) {
+  document.getElementById("toolsGrid").innerHTML = ""; 
+  let detail = `
+    <div class="product-card">
+      <img src="${item.image}" alt="${item.toolNameEng}">
+      <h3>${item.toolNameEng}</h3>
+      <p><b>Tamil Name:</b> ${item.toolNameTam}</p>
+      <p><b>Specifications:</b> ${item.specs}</p>
+    </div>
+  `;
+  document.getElementById("toolDetail").innerHTML = detail;
+}
+
+function applyFilter() {
+  let selected = document.getElementById("filterSelect").value;
+  if (selected === "") {
+    renderTools(allTools);
+  } else {
+    let filtered = allTools.filter(item => item.toolNameEng === selected);
+    if(filtered.length > 0) renderDetail(filtered[0]);
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>

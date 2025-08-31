@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Appliances Guide</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: white;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background: #00cecb;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .lang-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  .lang-buttons button {
+    background: #00cecb;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+  }
+  .lang-buttons button:hover {
+    background: #063a8a;
+  }
+  .icon-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .icon-bar div {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .icon-bar div:hover {
+    transform: scale(1.1);
+  }
+  .icon-bar img {
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin: auto;
+  }
+  .icon-bar span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #063a8a;
+    font-weight: bold;
+  }
+  .content {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .machine-section {
+    display: none;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  .machine-section.active {
+    display: block;
+  }
+  h2 {
+    color: #00cecb;
+    margin-bottom: 10px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    background: white;
+    margin: 6px 0;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  footer {
+    text-align: center;
+    background: #00cecb;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+</style>
+</head>
+<body>
+
+<header>Valanar - ITI Kuruvikulam</header>
+
+<!-- Language Switch -->
+<div class="lang-buttons">
+  <button onclick="setLanguage('english')">English</button>
+  <button onclick="setLanguage('tamil')">தமிழ்</button>
+</div>
+
+<!-- Icons -->
+<div class="icon-bar">
+  <div onclick="showMachine('ac')">
+    <img src="https://img.icons8.com/ios-filled/100/0b69ff/air-conditioner.png" alt="AC">
+    <span>AC</span>
+  </div>
+  <div onclick="showMachine('fridge')">
+    <img src="https://img.icons8.com/ios-filled/100/0b69ff/fridge.png" alt="Fridge">
+    <span>Fridge</span>
+  </div>
+  <div onclick="showMachine('washing')">
+    <img src="https://img.icons8.com/ios-filled/100/0b69ff/washing-machine.png" alt="Washing Machine">
+    <span>Washing</span>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <!-- AC -->
+  <div id="ac" class="machine-section active">
+    <div class="english">
+      <h2>Air Conditioner (AC) – Working</h2>
+      <ul>
+        <li>1. Compressor compresses refrigerant gas.</li>
+        <li>2. Hot gas moves to condenser coil.</li>
+        <li>3. Condenser releases heat to outside.</li>
+        <li>4. Gas turns into liquid refrigerant.</li>
+        <li>5. Expansion valve reduces pressure.</li>
+        <li>6. Refrigerant enters evaporator coil.</li>
+        <li>7. Evaporator absorbs heat from room.</li>
+        <li>8. Blower circulates cool air inside.</li>
+        <li>9. Thermostat monitors temperature.</li>
+        <li>10. Cycle repeats for cooling.</li>
+      </ul>
+    </div>
+    <div class="tamil" style="display:none;">
+      <h2>ஏர் கண்டிஷனர் – செயல்முறை</h2>
+      <ul>
+        <li>1. கம்ப்ரசர் குளிர்பதன வாயுவை அழுத்துகிறது.</li>
+        <li>2. சூடான வாயு கண்டென்சருக்கு செல்கிறது.</li>
+        <li>3. கண்டென்சர் வெப்பத்தை வெளியேற்றுகிறது.</li>
+        <li>4. வாயு திரவமாக மாறுகிறது.</li>
+        <li>5. எக்ஸ்பான்ஷன் வால்வு அழுத்தத்தை குறைக்கிறது.</li>
+        <li>6. திரவம் ஈவாபரேட்டருக்குள் செல்கிறது.</li>
+        <li>7. ஈவாபரேட்டர் அறை சூட்டை உறிஞ்சுகிறது.</li>
+        <li>8. ப்ளோயர் குளிர்ந்த காற்றை சுழற்றுகிறது.</li>
+        <li>9. தெர்மோஸ்டாட் வெப்பநிலையை கண்காணிக்கிறது.</li>
+        <li>10. சுழற்சி தொடர்ந்து நடக்கிறது.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Fridge -->
+  <div id="fridge" class="machine-section">
+    <div class="english">
+      <h2>Refrigerator – Working</h2>
+      <ul>
+        <li>1. Compressor compresses refrigerant gas.</li>
+        <li>2. Hot gas moves to condenser coil at back.</li>
+        <li>3. Condenser releases heat outside.</li>
+        <li>4. Refrigerant turns liquid under pressure.</li>
+        <li>5. Expansion valve reduces pressure.</li>
+        <li>6. Liquid enters evaporator inside fridge.</li>
+        <li>7. Evaporator absorbs heat from storage.</li>
+        <li>8. Cool air circulates inside.</li>
+        <li>9. Thermostat controls temperature.</li>
+        <li>10. Cycle repeats automatically.</li>
+      </ul>
+    </div>
+    <div class="tamil" style="display:none;">
+      <h2>குளிர்சாதன பெட்டி – செயல்முறை</h2>
+      <ul>
+        <li>1. கம்ப்ரசர் குளிர்பதன வாயுவை அழுத்துகிறது.</li>
+        <li>2. சூடான வாயு பின்புற கண்டென்சருக்கு செல்கிறது.</li>
+        <li>3. கண்டென்சர் வெப்பத்தை வெளியேற்றுகிறது.</li>
+        <li>4. வாயு திரவமாக மாறுகிறது.</li>
+        <li>5. எக்ஸ்பான்ஷன் வால்வு அழுத்தத்தை குறைக்கிறது.</li>
+        <li>6. திரவம் ஈவாபரேட்டருக்குள் செல்கிறது.</li>
+        <li>7. ஈவாபரேட்டர் உணவின் சூட்டை உறிஞ்சுகிறது.</li>
+        <li>8. குளிர்ந்த காற்று உள்ளே சுழல்கிறது.</li>
+        <li>9. தெர்மோஸ்டாட் வெப்பநிலையை கட்டுப்படுத்துகிறது.</li>
+        <li>10. சுழற்சி தொடர்ந்து நடக்கிறது.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Washing Machine -->
+  <div id="washing" class="machine-section">
+    <div class="english">
+      <h2>Washing Machine – Working</h2>
+      <ul>
+        <li>1. Water inlet valve fills drum.</li>
+        <li>2. Detergent mixes with water.</li>
+        <li>3. Drum rotates to wash clothes.</li>
+        <li>4. Motor powers drum rotation.</li>
+        <li>5. Wash cycle removes dirt.</li>
+        <li>6. Drain pump removes dirty water.</li>
+        <li>7. Rinse cycle adds clean water.</li>
+        <li>8. Spin cycle removes extra water.</li>
+        <li>9. Timer controls all cycles.</li>
+        <li>10. Machine stops after program.</li>
+      </ul>
+    </div>
+    <div class="tamil" style="display:none;">
+      <h2>வாஷிங் மெஷின் – செயல்முறை</h2>
+      <ul>
+        <li>1. வாட்டர் இன்லெட் டிரமில் தண்ணீர் செலுத்துகிறது.</li>
+        <li>2. டிட்டர்ஜென்ட் தண்ணீருடன் கலக்கிறது.</li>
+        <li>3. டிரம் சுழன்று துணிகளை கழுவுகிறது.</li>
+        <li>4. மோட்டார் டிரமுக்கு சக்தி தருகிறது.</li>
+        <li>5. வாஷ் சைக்கிள் அழுக்கை அகற்றுகிறது.</li>
+        <li>6. டிரெயின் பம்ப் அழுக்கான தண்ணீரை வெளியேற்றுகிறது.</li>
+        <li>7. ரின்ஸ் சைக்கிள் புதிய தண்ணீரை சேர்க்கிறது.</li>
+        <li>8. ஸ்பின் சைக்கிள் கூடுதல் தண்ணீரை அகற்றுகிறது.</li>
+        <li>9. டைமர் அனைத்து சைக்கிள்களையும் கட்டுப்படுத்துகிறது.</li>
+        <li>10. ப்ரோக்ராம் முடிந்ததும் மெஷின் நிற்கிறது.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>Sastha Software | Call : (+91) 6383003056</footer>
+
+<script>
+  let currentLang = 'english';
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.machine-section').forEach(sec => {
+      sec.querySelector('.english').style.display = (lang === 'english') ? 'block' : 'none';
+      sec.querySelector('.tamil').style.display = (lang === 'tamil') ? 'block' : 'none';
+    });
+  }
+
+  function showMachine(machineId) {
+    document.querySelectorAll('.machine-section').forEach(sec => {
+      sec.classList.remove('active');
+    });
+    let section = document.getElementById(machineId);
+    section.classList.add('active');
+    // show correct language immediately
+    setLanguage(currentLang);
+  }
+
+  // set default language view
+  setLanguage('english');
+</script>
+
+</body>
+</html>

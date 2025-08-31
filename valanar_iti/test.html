@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITI Attendance</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; }
+    header {
+        background: #004080; color: white; display: flex; align-items: center;
+        padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    header img { height: 60px; margin-right: 15px; }
+    header h1 { font-size: 20px; font-weight: bold; }
+    main { padding: 20px; }
+    section { background: white; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+    h2 { margin-bottom: 10px; color: #004080; }
+    label { display: block; margin-top: 10px; }
+    input, select, button {
+        padding: 8px; margin-top: 5px; width: 90%; border: 1px solid #ccc; border-radius: 4px;
+    }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+    th { background: #004080; color: white; }
+    tr:nth-child(even) { background: #f2f2f2; }
+    .btn-small { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; }
+    .present { background: green; color: white; }
+    .absent { background: red; color: white; }
+    .edit { background: orange; color: white; }
+    .delete { background: darkred; color: white; }
+    .summary { margin-top: 10px; font-weight: bold; }
+
+      footer {
+    background-color: white;
+    color: #063a8a;
+    text-align: center;
+    padding: 12px 10px;
+    font-size: 14px;
+    border-top: 1px solid #311b31;
+  }
+    
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="1.png" alt="College Logo">
+    <h1>Valanar - ITI - Kuruvikulam</h1>
+</header>
+
+<main>
+    <!-- Student Entry -->
+    <section>
+        <h2>Register Student</h2>
+        <label>Roll No:</label>
+        <input type="text" id="rollNo">
+        <label>Student Name:</label>
+        <input type="text" id="studentName">
+        <label>Department:</label>
+        <select id="department">
+            <option value="">Select Department</option>
+            <option value="ITI Fitter">ITI Fitter</option>
+            <option value="ITI Electrician">ITI Electrician</option>
+            <option value="ITI Welder">ITI Welder</option>
+            <option value="ITI Ac">ITI Ac</option>
+        </select>
+        <button onclick="registerStudent()">Add Student</button>
+    </section>
+
+    <!-- Student List -->
+    <section>
+        <h2>Student List</h2>
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <!-- Attendance -->
+    <section>
+        <h2 id="attendanceHeader">Take Attendance - </h2>
+        <label>Date:</label>
+        <input type="date" id="attDate">
+        <label>Session:</label>
+        <select id="session">
+            <option value="">Select Session</option>
+            <option value="AM">Morning (AM)</option>
+            <option value="PM">Afternoon (PM)</option>
+            <option value="Full Day">Full Day</option>
+        </select>
+        <label>Select Department:</label>
+        <select id="filterDept" onchange="loadAttendanceList()">
+            <option value="">Select Department</option>
+            <option value="ITI Fitter">ITI Fitter</option>
+            <option value="ITI Electrician">ITI Electrician</option>
+            <option value="ITI Welder">ITI Welder</option>
+            <option value="ITI Ac">ITI Ac</option>
+        </select>
+        
+        <table id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Mark</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h3>Attendance Status Table</h3>
+        <table id="statusTable">
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div class="summary" id="summaryLine">Total: 0 | Present: 0 | Absent: 0</div>
+        <button onclick="exportAndShare()">📤 Share Attendance on WhatsApp</button>
+    </section>
+</main>
+<footer>
+  Sastha Software | Call : (+91) 6383003056
+</footer>
+    
+<script>
+    let students = JSON.parse(localStorage.getItem("att_details")) || [];
+    let todayAttendance = {};
+
+    function saveStudents() {
+        localStorage.setItem("att_details", JSON.stringify(students));
+        loadStudentList();
+    }
+
+    function registerStudent() {
+        let rollNo = document.getElementById("rollNo").value.trim();
+        let name = document.getElementById("studentName").value.trim();
+        let dept = document.getElementById("department").value;
+
+        if (!rollNo || !name || !dept) {
+            alert("Please fill all fields");
+            return;
+        }
+
+        students.push({ rollNo, name, dept });
+        saveStudents();
+
+        document.getElementById("rollNo").value = "";
+        document.getElementById("studentName").value = "";
+        document.getElementById("department").value = "";
+    }
+
+    function loadStudentList() {
+        let tbody = document.querySelector("#studentTable tbody");
+        tbody.innerHTML = "";
+        students.forEach((s, index) => {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${s.rollNo}</td>
+                <td>${s.name}</td>
+                <td>${s.dept}</td>
+                <td>
+                    <button class="btn-small edit" onclick="editStudent(${index})">Edit</button>
+                    <button class="btn-small delete" onclick="deleteStudent(${index})">Delete</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function editStudent(index) {
+        let s = students[index];
+        document.getElementById("rollNo").value = s.rollNo;
+        document.getElementById("studentName").value = s.name;
+        document.getElementById("department").value = s.dept;
+        students.splice(index, 1);
+        saveStudents();
+    }
+
+    function deleteStudent(index) {
+        if (confirm("Delete this student?")) {
+            students.splice(index, 1);
+            saveStudents();
+        }
+    }
+
+    function loadAttendanceList() {
+        let dept = document.getElementById("filterDept").value;
+        let date = document.getElementById("attDate").value;
+        let header = document.getElementById("attendanceHeader");
+
+        header.innerText = `Take Attendance - ${dept || ""} ${date || ""}`;
+
+        let tbody = document.getElementById("attendanceTable").querySelector("tbody");
+        tbody.innerHTML = "";
+        todayAttendance = {};
+        updateStatusTable();
+
+        let filtered = students.filter(s => s.dept === dept);
+        filtered.forEach(s => {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${s.rollNo}</td>
+                <td>${s.name}</td>
+                <td>
+                    <button class="btn-small present" onclick="markAttendance('${s.rollNo}','Present')">Present</button>
+                    <button class="btn-small absent" onclick="markAttendance('${s.rollNo}','Absent')">Absent</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        updateSummary();
+    }
+
+    function markAttendance(rollNo, status) {
+        todayAttendance[rollNo] = status;
+        updateStatusTable();
+        updateSummary();
+    }
+
+    function updateStatusTable() {
+        let tbody = document.querySelector("#statusTable tbody");
+        tbody.innerHTML = "";
+        Object.keys(todayAttendance).forEach(rollNo => {
+            let student = students.find(s => s.rollNo === rollNo);
+            if (student) {
+                let tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${student.rollNo}</td>
+                    <td>${student.name}</td>
+                    <td>${todayAttendance[rollNo]}</td>
+                    <td>
+                        <button class="btn-small edit" onclick="editAttendance('${rollNo}')">Edit</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            }
+        });
+    }
+
+    function editAttendance(rollNo) {
+        let newStatus = prompt("Enter new status (Present/Absent):", todayAttendance[rollNo]);
+        if (newStatus && (newStatus.toLowerCase() === "present" || newStatus.toLowerCase() === "absent")) {
+            todayAttendance[rollNo] = newStatus.charAt(0).toUpperCase() + newStatus.slice(1).toLowerCase();
+            updateStatusTable();
+            updateSummary();
+        } else {
+            alert("Invalid status entered!");
+        }
+    }
+
+    function updateSummary() {
+        let total = Object.keys(todayAttendance).length;
+        let presentCount = Object.values(todayAttendance).filter(v => v === "Present").length;
+        let absentCount = Object.values(todayAttendance).filter(v => v === "Absent").length;
+        document.getElementById("summaryLine").innerText = `Total: ${total} | Present: ${presentCount} | Absent: ${absentCount}`;
+    }
+
+    function exportAndShare() {
+        let date = document.getElementById("attDate").value;
+        let session = document.getElementById("session").value;
+        let dept = document.getElementById("filterDept").value;
+
+        if (!date || !session || !dept) {
+            alert("Please select date, session, and department");
+            return;
+        }
+
+        let total = Object.keys(todayAttendance).length;
+        let presentCount = Object.values(todayAttendance).filter(v => v === "Present").length;
+        let absentCount = Object.values(todayAttendance).filter(v => v === "Absent").length;
+
+        let report = `Attendance Report\nDate: ${date}\nSession: ${session}\nDepartment: ${dept}\n\n`;
+        Object.keys(todayAttendance).forEach(rollNo => {
+            let student = students.find(s => s.rollNo === rollNo);
+            if (student) {
+                report += `${student.rollNo} - ${student.name}: ${todayAttendance[rollNo]}\n`;
+            }
+        });
+
+        report += `\nSummary: Total: ${total}, Present: ${presentCount}, Absent: ${absentCount}`;
+
+        let encoded = encodeURIComponent(report);
+        window.open(`https://wa.me/?text=${encoded}`, "_blank");
+    }
+
+    // Default date to today
+    document.getElementById("attDate").value = new Date().toISOString().split("T")[0];
+    loadStudentList();
+</script>
+
+</body>
+</html>

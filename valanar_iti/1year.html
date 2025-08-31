@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ITI AC Mechanic - First Year</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root{
+    --blue:#00cecb;
+    --white:#ffffff;
+    --light:#f5f9ff;
+    --dark:#03396c;
+    --card:#ffffff;
+    --shadow:0 4px 12px rgba(0,0,0,0.1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+  body{background:var(--light);color:var(--dark);}
+  header{background:var(--blue);color:var(--white);padding:15px;text-align:center;position:sticky;top:0;z-index:100;}
+  header h1{font-size:1.5rem;}
+  .container{padding:15px;}
+  .card{
+    background:var(--card);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    margin:15px 0;
+    padding:15px;
+    transition:transform .3s;
+    animation:fadeInUp 1s ease;
+  }
+  .card:hover{transform:translateY(-5px);}
+  .card h2{color:var(--blue);margin-bottom:10px;font-size:1.2rem;}
+  .icon{font-size:2rem;color:var(--blue);margin-bottom:8px;animation:spin 5s linear infinite;}
+  footer{
+    background:var(--blue);
+    color:var(--white);
+    text-align:center;
+    padding:12px;
+    margin-top:20px;
+  }
+  @keyframes fadeInUp{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  @keyframes spin{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1><i class="fa-solid fa-screwdriver-wrench"></i> ITI AC Mechanic - First Year</h1>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-book"></i></div>
+      <h2>Syllabus</h2>
+      <p>⚙️ Basic Electrical, ⚙️ Types of Compressors, ⚙️ Refrigeration Cycle, ⚙️ Use of Tools, ⚙️ Identification of Parts.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-screwdriver"></i></div>
+      <h2>Tools Used</h2>
+      <ul>
+        <li>Screwdriver Set</li>
+        <li>Multimeter</li>
+        <li>Gas Wrench</li>
+        <li>Gauge Manifold</li>
+        <li>Copper Tubing Tools</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+      <h2>Safety Rules</h2>
+      <p>⚠️ Always switch off electricity before working.<br>
+         ⚠️ Always wear gloves and safety glasses.<br>
+         ⚠️ If gas leakage is found, check immediately.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-fan"></i></div>
+      <h2>AC Parts</h2>
+      <p>Compressor, Condenser, Evaporator, Capacitor, Filter, Blower, Relay, Compressor Oil.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <h2>Practical Work</h2>
+      <p>🔧 Wiring Connection<br>
+         🔧 Checking Compressor with Gauge<br>
+         🔧 Testing Refrigeration Cycle<br>
+         🔧 Filling Gas Charge</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>✨ Sastha Software | Call : (+91) 6383003056 ✨</p>
+  </footer>
+</body>
+</html>

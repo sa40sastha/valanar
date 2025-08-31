@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ITI AC மெக்கானிக் - முதல் ஆண்டு</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root{
+    --blue:#00cecb;
+    --white:#ffffff;
+    --light:#f5f9ff;
+    --dark:#03396c;
+    --card:#ffffff;
+    --shadow:0 4px 12px rgba(0,0,0,0.1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Noto Sans Tamil',sans-serif;}
+  body{background:var(--light);color:var(--dark);}
+  header{background:var(--blue);color:var(--white);padding:15px;text-align:center;position:sticky;top:0;z-index:100;}
+  header h1{font-size:1.5rem;}
+  .container{padding:15px;}
+  .card{
+    background:var(--card);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    margin:15px 0;
+    padding:15px;
+    transition:transform .3s;
+    animation:fadeInUp 1s ease;
+  }
+  .card:hover{transform:translateY(-5px);}
+  .card h2{color:var(--blue);margin-bottom:10px;font-size:1.2rem;}
+  .icon{font-size:2rem;color:var(--blue);margin-bottom:8px;animation:spin 5s linear infinite;}
+  footer{
+    background:var(--blue);
+    color:var(--white);
+    text-align:center;
+    padding:12px;
+    margin-top:20px;
+  }
+  @keyframes fadeInUp{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  @keyframes spin{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1><i class="fa-solid fa-screwdriver-wrench"></i> ITI AC மெக்கானிக் - முதல் ஆண்டு</h1>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-book"></i></div>
+      <h2>பாடத்திட்டம் (Syllabus)</h2>
+      <p>⚙️ அடிப்படை மின்னியல், ⚙️ கம்ப்ரசர் வகைகள், ⚙️ குளிர் சுழற்சி, ⚙️ கருவிகள் பயன்பாடு, ⚙️ பாகங்கள் அடையாளம்.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-screwdriver"></i></div>
+      <h2>பயன்படுத்தப்படும் கருவிகள்</h2>
+      <ul>
+        <li>ஸ்க்ரூ டிரைவர் செட்</li>
+        <li>மல்டிமீட்டர்</li>
+        <li>கேஸ் ரேஞ்ச்</li>
+        <li>கேஜ் மேனிஃபோல்ட்</li>
+        <li>காப்பர் டியூபிங் கருவிகள்</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+      <h2>பாதுகாப்பு விதிகள்</h2>
+      <p>⚠️ மின்சாரம் அணைத்து பின் வேலை செய்ய வேண்டும்.<br>
+         ⚠️ எப்போதும் கையுறைகள், கண்ணாடிகள் அணிய வேண்டும்.<br>
+         ⚠️ எரிவாயு கசிவு இருந்தால் உடனே சரிபார்க்க வேண்டும்.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-fan"></i></div>
+      <h2>AC பாகங்கள்</h2>
+      <p>கம்ப்ரசர், கண்டென்சர், எவாபரேட்டர், கேபாசிட்டர், பில்டர், ப்ளோவர், ரிலே, கம்ப்ரசர் எண்ணெய்.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <h2>பயிற்சி வேலைகள்</h2>
+      <p>🔧 வயரிங் இணைப்பு<br>
+         🔧 கேஜ் கம்ப்ரசர் சரி பார்க்க<br>
+         🔧 குளிர் சுழற்சி பரிசோதனை<br>
+         🔧 கேஸ் சார்ஜ் நிரப்பு</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>✨ Sastha Software | Call : (+91) 6383003056 ✨</p>
+  </footer>
+</body>
+</html>

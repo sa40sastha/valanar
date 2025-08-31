@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AC Parts Working Principle</title>
+<style>
+  :root {
+    --blue:#00cecb;
+    --red:#ff3333;
+    --light:#f4faff;
+    --white:#ffffff;
+    --gray:#ccc;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    margin:0;
+    background: var(--light);
+    color:#222;
+    text-align:center;
+  }
+  header {
+    background:linear-gradient(90deg, var(--blue), #063a8a);
+    color:var(--white);
+    padding:12px;
+    font-size:20px;
+    font-weight:bold;
+  }
+  .lang-select {
+    margin:12px;
+    padding:6px;
+    font-size:15px;
+    border-radius:6px;
+  }
+  .container { display:flex; flex-direction:column; align-items:center; padding:10px; }
+
+  /* Diagram */
+  .diagram {
+    position:relative;
+    width:100%; max-width:420px; height:450px;
+    background:#fff; border:2px solid var(--blue);
+    border-radius:10px; margin-bottom:15px; overflow:hidden;
+  }
+  .indoor, .outdoor {
+    position:absolute; width:40%; height:80px;
+    background:#e9f2ff; border:2px solid var(--gray);
+    border-radius:8px; font-size:12px; font-weight:bold;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+  }
+  .indoor { top:20px; left:10px; }
+  .outdoor { top:20px; right:10px; }
+  .comp {
+    position:absolute; bottom:50px; left:50%; transform:translateX(-50%);
+    width:85px; height:60px; background:#222; color:white;
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:bold;
+  }
+  .expv {
+    position:absolute; top:200px; left:50%; transform:translateX(-50%);
+    width:100px; height:35px; background:#ddd; border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px; font-weight:bold;
+  }
+  .fan { width:26px; height:26px; border:3px solid var(--blue); border-radius:50%; animation:spin 1s linear infinite; position:absolute; }
+  @keyframes spin { 0%{transform:rotate(0);} 100%{transform:rotate(360deg);} }
+  .indoor .fan { right:5px; top:5px; border-color:var(--blue);}
+  .outdoor .fan { right:5px; top:5px; border-color:var(--red);}
+
+  /* Airflow arrows */
+  .arrow { position:absolute; width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; animation:flow 1.5s linear infinite; }
+  @keyframes flow { 0%{opacity:0; transform:translateY(0);} 50%{opacity:1;} 100%{opacity:0; transform:translateY(-20px);} }
+  .arrow.blue {border-left:15px solid var(--blue);}
+  .arrow.red {border-left:15px solid var(--red);}
+  .indoor .arrow {left:-20px; top:30px;}
+  .outdoor .arrow {right:-20px; top:30px;}
+
+  /* Pipes */
+  .pipe { position:absolute; border:3px solid; border-radius:20px; }
+  .pipe.hot {border-color:var(--red);}
+  .pipe.cold {border-color:var(--blue);}
+  .p1{top:70px; left:42%; width:16%; height:0;}
+  .p2{top:230px; left:50%; width:0; height:160px;}
+  .p3{bottom:90px; left:50%; width:25%; height:0;}
+  .p4{top:70px; right:34%; width:0; height:160px;}
+
+  /* Refrigerant droplet */
+  .dot { width:14px; height:14px; border-radius:50%; position:absolute; animation:cycle 12s linear infinite; }
+  @keyframes cycle {
+    0%   {bottom:90px; left:52%; background:var(--red);}
+    25%  {top:70px; right:36%; background:var(--red);}
+    50%  {top:70px; left:42%; background:var(--blue);}
+    75%  {top:230px; left:48%; background:var(--blue);}
+    100% {bottom:90px; left:52%; background:var(--red);}
+  }
+
+  /* Part Detail Buttons */
+  .parts { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:10px 0; }
+  .parts button {
+    padding:8px 10px; border:none; background:var(--blue); color:white;
+    border-radius:6px; font-size:13px; cursor:pointer; transition:0.2s;
+  }
+  .parts button:hover {background:#063a8a;}
+  .part-detail {
+    max-width:95%; margin:auto; background:#fff; border:1px solid #ddd;
+    padding:10px; border-radius:8px; font-size:14px; text-align:left;
+  }
+</style>
+</head>
+<body>
+
+<header>Air Conditioner - Full Parts Summary</header>
+
+<select class="lang-select" onchange="changeLang(this.value)">
+  <option value="en">English</option>
+  <option value="ta">தமிழ்</option>
+</select>
+
+<div class="container">
+  <!-- Diagram -->
+  <div class="diagram">
+    <div class="indoor">Indoor Unit<br>Evaporator<div class="fan"></div><div class="arrow blue"></div></div>
+    <div class="outdoor">Outdoor Unit<br>Condenser<div class="fan"></div><div class="arrow red"></div></div>
+    <div class="comp">Compressor</div>
+    <div class="expv">Expansion Valve</div>
+
+    <!-- Pipes -->
+    <div class="pipe cold p1"></div>
+    <div class="pipe cold p2"></div>
+    <div class="pipe hot p3"></div>
+    <div class="pipe hot p4"></div>
+
+    <!-- Refrigerant droplet -->
+    <div class="dot"></div>
+  </div>
+
+  <!-- Buttons for each part -->
+  <div class="parts">
+    <button onclick="showDetail('comp')">Compressor</button>
+    <button onclick="showDetail('cond')">Condenser</button>
+    <button onclick="showDetail('expv')">Expansion Valve</button>
+    <button onclick="showDetail('evap')">Evaporator</button>
+    <button onclick="showDetail('indoor')">Indoor Unit</button>
+    <button onclick="showDetail('outdoor')">Outdoor Unit</button>
+    <button onclick="showDetail('fans')">Fans</button>
+  </div>
+
+  <!-- Part detail summary -->
+  <div class="part-detail" id="partDetail">Select a part to view details.</div>
+</div>
+
+<script>
+  const details = {
+    en: {
+      comp:"Compressor: The heart of the AC. It compresses low-pressure gas into high-pressure hot gas, starting the cooling cycle.",
+      cond:"Condenser Coil: Located in the outdoor unit. Hot refrigerant gas releases heat to the outside air and becomes liquid.",
+      expv:"Expansion Valve: Reduces the pressure of liquid refrigerant before it enters the evaporator, making it very cold.",
+      evap:"Evaporator Coil: Located in the indoor unit. Cold refrigerant absorbs heat from the room air, cooling the room.",
+      indoor:"Indoor Unit: Contains the evaporator coil and fan. It blows cool air into the room.",
+      outdoor:"Outdoor Unit: Contains the condenser coil, compressor, and fan. It releases heat outside.",
+      fans:"Fans: Indoor fan circulates cool air inside; outdoor fan expels heat from condenser."
+    },
+    ta: {
+      comp:"கம்பிரசர்: ஏ.சி-யின் இதயம். இது குறைந்த அழுத்த வாயுவை அதிக அழுத்தம் கொண்ட வெப்ப வாயுவாக மாற்றுகிறது.",
+      cond:"கண்டென்சர் காயில்: வெளிப்புறத்தில் உள்ளது. குளிர்மருந்து வெப்பத்தை வெளியேற்றிச் திரவமாக மாறுகிறது.",
+      expv:"எக்ஸ்பான்ஷன் வால்வு: திரவத்தின் அழுத்தத்தை குறைத்து குளிர்ச்சியை உருவாக்குகிறது.",
+      evap:"ஈவாபரேட்டர் காயில்: உள் பங்கில் உள்ளது. அறையின் வெப்பத்தை உறிஞ்சி காற்றை குளிர்விக்கிறது.",
+      indoor:"உள் பங்கு: ஈவாபரேட்டர் மற்றும் பங்கா அடங்கியுள்ளது. குளிர்ந்த காற்றை அறைக்குள் அனுப்புகிறது.",
+      outdoor:"வெளிப்புற பங்கு: கண்டென்சர், கம்பிரசர் மற்றும் பங்கா உள்ளது. வெப்பத்தை வெளியேற்றுகிறது.",
+      fans:"பங்காக்கள்: உள் பங்கு குளிர்ந்த காற்றை சுழற்றுகிறது; வெளிப்புற பங்கு வெப்பத்தை வெளியேற்றுகிறது."
+    }
+  };
+
+  let currentLang="en";
+  function changeLang(lang){
+    currentLang=lang;
+    document.getElementById("partDetail").innerText="Select a part to view details.";
+  }
+  function showDetail(part){
+    document.getElementById("partDetail").innerText=details[currentLang][part];
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customer Portal</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #c82c4e;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+      width: 100%;
+      max-width: 500px;
+    }
+    h2 { text-align: center; }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #e63b60;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button[disabled] {
+      background: #999;
+      cursor: not-allowed;
+    }
+    button:hover:enabled {
+      background: #c82c4e;
+    }
+    .section { display: none; }
+    .active { display: block; }
+    .error { color: red; text-align: center; }
+    .success { color: green; text-align: center; }
+    .toggle-btns {
+      display: flex;
+      justify-content: space-between;
+      gap: 5px;
+    }
+    .toggle-btns button { width: 32%; }
+    h5 {
+      font-size: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Auth Section -->
+  <div class="container" id="authSection">
+    <div class="box">
+      <!-- Signup -->
+      <div id="signup" class="section">
+        <h2>New Signup</h2>
+        <input type="text" id="signup_name" placeholder="Name" />
+        <input type="text" id="signup_mobile" placeholder="Mobile" />
+        <input type="email" id="signup_email" placeholder="Email" />
+        <input type="password" id="signup_password" placeholder="Password" />
+        <button id="signupBtn" onclick="signup(event)">Signup</button>
+        <div id="signup_msg"></div>
+        <div class="toggle-btns">
+          <button onclick="showSection('signup')">Signup</button>
+          <button onclick="showSection('login')">SignIn</button>
+          <button onclick="showSection('forgot')">Forgot</button>
+        </div>
+        <h5>Development By Sastha Software Call : (+91) 6383003056</h5>
+      </div>
+
+      <!-- Login -->
+      <div id="login" class="section active">
+        <h2>SignIn</h2>
+        <input type="text" id="login_mobile" placeholder="Mobile" />
+        <input type="password" id="login_password" placeholder="Password" />
+        <button id="loginBtn" onclick="login(event)">SignIn</button>
+        <div id="login_msg"></div>
+        <div class="toggle-btns">
+          <button onclick="showSection('signup')">Signup</button>
+          <button onclick="showSection('login')">SignIn</button>
+          <button onclick="showSection('forgot')">Forgot</button>
+        </div>
+        <h5>Development By Sastha Software Call : (+91) 6383003056</h5>
+      </div>
+
+      <!-- Forgot Password -->
+      <div id="forgot" class="section">
+        <h2>Forgot Password</h2>
+        <input type="email" id="forgot_email" placeholder="Email" />
+        <button id="sendOtpBtn" onclick="sendOtp(event)">Send OTP</button>
+        <div id="otpSection" style="display:none;">
+          <input type="text" id="otp" placeholder="Enter OTP" />
+          <button id="verifyOtpBtn" onclick="verifyOtp(event)">Verify OTP</button>
+        </div>
+        <div id="forgot_msg"></div>
+        <div id="password_display" class="success"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const authScriptURL = "https://script.google.com/macros/s/AKfycbzJO8Xdf3-I3DOj42pZQqLq3ZoRN4MgVBQKr08yeiD_xLXnKmlLkAhcyMfTYGrjc3rN/exec";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const storedMobile = localStorage.getItem("loggedInMobile");
+      if (storedMobile) {
+        // Already logged in → go to main_screen.html
+        window.location.href = "main_screen.html";
+      }
+    });
+
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      clearMessages();
+    }
+
+    function clearMessages() {
+      ["signup_msg", "login_msg", "forgot_msg", "password_display"].forEach(id => document.getElementById(id).innerText = "");
+      document.getElementById("otpSection").style.display = "none";
+    }
+
+    function setButtonState(id, loading) {
+      const btn = document.getElementById(id);
+      btn.disabled = loading;
+      btn.innerText = loading ? "Please wait..." : {
+        "signupBtn": "Signup",
+        "loginBtn": "SignIn",
+        "sendOtpBtn": "Send OTP",
+        "verifyOtpBtn": "Verify OTP"
+      }[id];
+    }
+
+    function signup(e) {
+      setButtonState("signupBtn", true);
+      const form = {
+        name: document.getElementById("signup_name").value,
+        mobile: document.getElementById("signup_mobile").value,
+        email: document.getElementById("signup_email").value,
+        password: document.getElementById("signup_password").value
+      };
+      const formData = new FormData();
+      formData.append("action", "signup");
+      Object.keys(form).forEach(k => formData.append(k, form[k]));
+
+      fetch(authScriptURL, { method: "POST", body: formData })
+        .then(res => res.text())
+        .then(data => {
+          setButtonState("signupBtn", false);
+          document.getElementById("signup_msg").innerHTML = data === "success"
+            ? "<p class='success'>Signup successful!</p>"
+            : "<p class='error'>Mobile or Email already exists.</p>";
+        });
+    }
+
+    function login(e) {
+      setButtonState("loginBtn", true);
+      const mobile = document.getElementById("login_mobile").value;
+      const password = document.getElementById("login_password").value;
+      const formData = new FormData();
+      formData.append("action", "login");
+      formData.append("mobile", mobile);
+      formData.append("password", password);
+
+      fetch(authScriptURL, { method: "POST", body: formData })
+        .then(res => res.text())
+        .then(data => {
+          setButtonState("loginBtn", false);
+          if (data === "success") {
+            localStorage.setItem("loggedInMobile", mobile);
+            // redirect to main screen
+            window.location.href = "main_screen.html";
+          } else {
+            document.getElementById("login_msg").innerHTML = "<p class='error'>Invalid login.</p>";
+          }
+        });
+    }
+
+    function sendOtp(e) {
+      setButtonState("sendOtpBtn", true);
+      const email = document.getElementById("forgot_email").value;
+      const formData = new FormData();
+      formData.append("action", "send_otp");
+      formData.append("email", email);
+
+      fetch(authScriptURL, { method: "POST", body: formData })
+        .then(res => res.text())
+        .then(data => {
+          setButtonState("sendOtpBtn", false);
+          if (data === "otp_sent") {
+            document.getElementById("forgot_msg").innerHTML = "<p class='success'>OTP sent to your email.</p>";
+            document.getElementById("otpSection").style.display = "block";
+          } else {
+            document.getElementById("forgot_msg").innerHTML = "<p class='error'>Email not found.</p>";
+          }
+        });
+    }
+
+    function verifyOtp(e) {
+      setButtonState("verifyOtpBtn", true);
+      const email = document.getElementById("forgot_email").value;
+      const otp = document.getElementById("otp").value;
+      const formData = new FormData();
+      formData.append("action", "verify_otp");
+      formData.append("email", email);
+      formData.append("otp", otp);
+
+      fetch(authScriptURL, { method: "POST", body: formData })
+        .then(res => res.text())
+        .then(data => {
+          setButtonState("verifyOtpBtn", false);
+          if (data === "invalid_otp") {
+            document.getElementById("forgot_msg").innerHTML = "<p class='error'>Invalid OTP.</p>";
+          } else {
+            document.getElementById("password_display").innerText = "Your password is: " + data;
+          }
+        });
+    }
+  </script>
+</body>
+</html>

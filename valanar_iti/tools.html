@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITI AC Mechanic Tools</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --primary-blue: #0b69ff;
+    --light-blue: #e6f0ff;
+    --white: #ffffff;
+    --text-color: #333;
+    --card-radius: 10px;
+    --card-padding: 15px;
+    --shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    background-color: var(--light-blue);
+    color: var(--text-color);
+}
+header {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top:0;
+    z-index: 1000;
+}
+.language-switch {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 16px;
+}
+.language-switch button {
+    background-color: var(--white);
+    color: var(--primary-blue);
+    border: none;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+h2 {
+    color: var(--primary-blue);
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary-blue);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.tool-card {
+    background-color: var(--white);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s;
+}
+.tool-card:hover {
+    transform: translateY(-5px);
+}
+.tool-card i {
+    font-size: 40px;
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}
+.tool-card h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+    color: var(--primary-blue);
+}
+.tool-card p {
+    font-size: 14px;
+    color: #555;
+}
+@media(max-width:768px){
+    header { font-size: 20px; }
+    .tool-card i { font-size: 35px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <span id="title"> Tools</span>
+    <div class="language-switch">
+        <button onclick="setLanguage('en')">Eng</button>
+        <button onclick="setLanguage('ta')">தமிழ்</button>
+    </div>
+</header>
+
+<div class="container" id="tools-container"></div>
+
+<script>
+// Tools Data Expanded
+const toolsData = [
+    {
+        category: {en:'Safety Tools', ta:'பாதுகாப்பு கருவிகள்'},
+        tools: [
+            {icon:'fa-gloves', name:{en:'Safety Gloves', ta:'பாதுகாப்பு கைகள்'}, desc:{en:'Protect hands from electrical shocks, chemicals, and sharp edges.', ta:'மின்சார அதிர்வுகள், வேதிப்பொருட்கள் மற்றும் கூர்மையான முனைகளிலிருந்து கைகளை பாதுகாக்கவும்.'}},
+            {icon:'fa-shield-halved', name:{en:'Safety Goggles', ta:'பாதுகாப்பு கண் காப்பி'}, desc:{en:'Protect eyes from sparks, chemicals, and debris.', ta:'மின்னல்கள், வேதிப்பொருட்கள் மற்றும் மாசு பொருட்களிலிருந்து கண்களை பாதுகாக்கவும்.'}},
+            {icon:'fa-hard-hat', name:{en:'Helmet', ta:'தலைக்கவசம்'}, desc:{en:'Head protection while working in workshops or field.', ta:'பணிசாலைகள் மற்றும் வெளிப்புறத்தில் தலை பாதுகாப்பு.'}},
+            {icon:'fa-face-mask', name:{en:'Face Mask', ta:'முகக் கவசம்'}, desc:{en:'Protect from dust, gases, and harmful fumes.', ta:'புகை, வாயுக்களை மற்றும் தீங்கு விளைவிக்கும் புகை முதலியவற்றிலிருந்து பாதுகாக்கவும்.'}}
+        ]
+    },
+    {
+        category: {en:'Electrical & Measurement Tools', ta:'மின்சார மற்றும் அளவீட்டு கருவிகள்'},
+        tools: [
+            {icon:'fa-bolt', name:{en:'Multimeter', ta:'மல்டிமீட்டர்'}, desc:{en:'Measure voltage, current, and resistance.', ta:'மின்சார மின்னழுத்தம், கர rent மற்றும் எதிர்ப்பு அளவிடவும்.'}},
+            {icon:'fa-plug-circle-bolt', name:{en:'Clamp Meter', ta:'கிளாம்ப் மீட்டர்'}, desc:{en:'Measure current without disconnecting wires.', ta:'தாரம் துண்டிக்காமல் கர rent அளவிடவும்.'}},
+            {icon:'fa-ruler-combined', name:{en:'Measuring Tape', ta:'அளவிடும் டேப்'}, desc:{en:'Measure dimensions accurately.', ta:'அளவுகளை சரியாக அளவிடவும்.'}},
+            {icon:'fa-microchip', name:{en:'Insulation Tester', ta:'இன்சுலேஷன் டெஸ்டர்'}, desc:{en:'Check insulation resistance in wires and motors.', ta:'வயர்கள் மற்றும் மோட்டார்களில் இன்சுலேஷன் எதிர்ப்பு சரிபார்க்கவும்.'}},
+            {icon:'fa-plug', name:{en:'Socket Tester', ta:'சாக்கெட் டெஸ்டர்'}, desc:{en:'Check proper wiring and voltage in sockets.', ta:'சாக்கெட்டுகளில் சரியான வயரிங் மற்றும் மின்னழுத்தத்தை சரிபார்க்கவும்.'}}
+        ]
+    },
+    {
+        category: {en:'HVAC & Refrigeration Tools', ta:'HVAC மற்றும் உறைதல் கருவிகள்'},
+        tools: [
+            {icon:'fa-snowflake', name:{en:'Manifold Gauge', ta:'மாநிபோல்டு கேஜ்'}, desc:{en:'Check refrigerant pressure and system health.', ta:'ரெஃப்ரிஜிரேண்ட் அழுத்தம் மற்றும் முறைமை நிலையை சரிபார்க்கவும்.'}},
+            {icon:'fa-wrench', name:{en:'Adjustable Wrench', ta:'சேர்க்கக்கூடிய ரேஞ்சர்'}, desc:{en:'Tighten or loosen nuts and bolts.', ta:'நடைகள் மற்றும் பிள்ளைகளை அடைக்க அல்லது திறக்க.'}},
+            {icon:'fa-compress-arrows-alt', name:{en:'Vacuum Pump', ta:'வெற்றிட பம்ப்'}, desc:{en:'Remove air and moisture from refrigeration system.', ta:'முறையில் காற்றையும் ஈரத்தையும் அகற்றவும்.'}},
+            {icon:'fa-tachometer-alt', name:{en:'Pressure Gauge', ta:'அழுத்த கேஜ்'}, desc:{en:'Measure system pressure accurately.', ta:'முறைமை அழுத்தத்தை சரியாக அளவிடவும்.'}},
+            {icon:'fa-screwdriver', name:{en:'Screwdriver Set', ta:'ஸ்க்ரூ டிரைவர் செட்'}, desc:{en:'For installation, maintenance, and repairs.', ta:'நிறுவல், பராமரிப்பு மற்றும் பழுது வேலைகளுக்கு.'}}
+        ]
+    },
+    {
+        category: {en:'Airflow & Cleaning Tools', ta:'வாயு ஓட்டம் மற்றும் சுத்தம் கருவிகள்'},
+        tools: [
+            {icon:'fa-fan', name:{en:'Airflow Meter', ta:'வாயு ஓட்டம் மீட்டர்'}, desc:{en:'Measure airflow in ducts and vents.', ta:'டக்டுகள் மற்றும் வென்டுகளில் வாயு ஓட்டம் அளவிடவும்.'}},
+            {icon:'fa-broom', name:{en:'Fin Comb', ta:'பின்ன் கம்ப்'}, desc:{en:'Straighten condenser/evaporator fins.', ta:'கொண்டென்சர்/எவாபோரேட்டர் பின்னை நேர்த்தியாக்கவும்.'}},
+            {icon:'fa-droplet', name:{en:'Leak Detector', ta:'லீக் டிடெக்டர்'}, desc:{en:'Detect refrigerant leaks in AC system.', ta:'ஏசி முறைமையில் கசிவுகளை கண்டறியவும்.'}},
+            {icon:'fa-brush', name:{en:'Cleaning Brush', ta:'சுத்தம் செய்யும் தூரிகை'}, desc:{en:'Clean coils, fins, and surfaces.', ta:'கோயில்கள், பின்னுகள் மற்றும் மேற்பரப்புகளை சுத்தம் செய்யவும்.'}},
+            {icon:'fa-water', name:{en:'Vacuum Cleaner', ta:'வெற்றிட சுத்தி'}, desc:{en:'Remove dust and debris from AC units.', ta:'ஏசி யூனிட்ஸில் இருந்து தூசி மற்றும் மாசுபாடுகளை அகற்றவும்.'}}
+        ]
+    }
+];
+
+// Current Language
+let currentLang = 'en';
+
+// Function to set language
+function setLanguage(lang){
+    currentLang = lang;
+    renderTools();
+}
+
+// Render Tools
+function renderTools(){
+    const container = document.getElementById('tools-container');
+    container.innerHTML = '';
+    toolsData.forEach(section=>{
+        const sectionEl = document.createElement('div');
+        const h2 = document.createElement('h2');
+        h2.textContent = section.category[currentLang];
+        sectionEl.appendChild(h2);
+
+        const grid = document.createElement('div');
+        grid.className = 'tools-grid';
+
+        section.tools.forEach(tool=>{
+            const card = document.createElement('div');
+            card.className = 'tool-card';
+            card.innerHTML = `
+                <i class="fa-solid ${tool.icon}"></i>
+                <h3>${tool.name[currentLang]}</h3>
+                <p>${tool.desc[currentLang]}</p>
+            `;
+            grid.appendChild(card);
+        });
+
+        sectionEl.appendChild(grid);
+        container.appendChild(sectionEl);
+    });
+
+    // Update header title
+    document.getElementById('title').textContent = (currentLang==='en')?' Tools':'கருவிகள்';
+}
+
+// Initial render
+renderTools();
+</script>
+
+</body>
+</html>

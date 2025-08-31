@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sastha Software - Menu</title>
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    background-color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #063a8a;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+  }
+ header {
+    background: #00cecb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  /* ✅ space between title & logout */
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+header .left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+header img {
+    height: 60px;
+}
+
+header h1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.logout-btn {
+    background: white;
+    color: red;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.logout-btn:hover {
+    background: #ff4d5a;
+}
+
+  
+  .icon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+    padding: 60px 20px 20px;
+    flex-grow: 1;
+    align-items: center;
+  }
+
+  .icon-box {
+    background: white;
+    border: 2px solid #00cecb;
+    border-radius: 20px;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    user-select: none;
+    color: #00cecb;
+  }
+
+  .icon-box:hover {
+    background: #00cecb;
+    color: white;
+    box-shadow: 0 0 15px #004080;
+  }
+
+  .icon-box i {
+    font-size: 60px;
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+  }
+
+  .icon-box span {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  footer {
+    background-color: white;
+    color: #063a8a;
+    text-align: center;
+    padding: 12px 10px;
+    font-size: 14px;
+    border-top: 1px solid #00cecb;
+  }
+
+  @media (max-width: 480px) {
+    .icon-box {
+      width: 120px;
+      height: 120px;
+    }
+    .icon-box i {
+      font-size: 45px;
+    }
+    .icon-box span {
+      font-size: 14px;
+    }
+  }
+  
+h5,h4 {
+    text-align: center;   
+    font-size: 18px;      
+    margin: 15px 0;       
+    color: #00cecb;       
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="left">
+    <img src="1.png" alt="College Logo">
+    <h1>Valanar - ITI - Kuruvikulam</h1>
+  </div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</header>
+
+<div class="icon-container">
+      <h5>Refrigerator and Air Conditioning System</h5>
+  
+  <!-- Intro -->
+  <div class="icon-box" onclick="goToPage('details.html')" role="button" tabindex="0" aria-label="Intro">
+    <i class="fa-solid fa-book-open"></i>
+    <span>Intro</span>
+  </div>
+  
+  <!-- Short Notes -->
+  <div class="icon-box" onclick="goToPage('ac.html')" role="button" tabindex="0" aria-label="Short Notes">
+    <i class="fa-solid fa-note-sticky"></i>
+    <span>Short Notes</span>
+  </div>
+
+  <!-- Details -->
+  <div class="icon-box" onclick="goToPage('full_details.html')" role="button" tabindex="0" aria-label="Details">
+    <i class="fa-solid fa-list-ul"></i>
+    <span>Details</span>
+  </div>
+
+  <div class="icon-box" onclick="goToPage('a.html')" role="button" tabindex="0" aria-label="Intro">
+    <i class="fa-solid fa-book-open"></i>
+    <span> AC Principle</span>
+  </div>
+  
+   <div class="icon-box" onclick="goToPage('f.html')" role="button" tabindex="0" aria-label="Intro">
+    <i class="fa-solid fa-book-open"></i>
+    <span> Fridge Principle</span>
+  </div>
+  
+  <!-- Diagram -->
+  <div class="icon-box" onclick="goToPage('diagram.html')" role="button" tabindex="0" aria-label="Diagram">
+    <i class="fa-solid fa-project-diagram"></i>
+    <span>Diagram</span>
+  </div>
+  
+  <div class="icon-box" onclick="goToPage('1year.html')" role="button" tabindex="0" aria-label="Intro">
+    <i class="fa-solid fa-book-open"></i>
+    <span>1 Year - English</span>
+  </div>
+  <div class="icon-box" onclick="goToPage('1year_tamil.html')" role="button" tabindex="0" aria-label="Intro">
+    <i class="fa-solid fa-book-open"></i>
+    <span>1 Year - Tamil</span>
+  </div>
+  
+  <div class="icon-box" onclick="goToPage('2year_english.html')" role="button" tabindex="0" aria-label="Intro">
+    <i class="fa-solid fa-book-open"></i>
+    <span>2 Year - English</span>
+  </div>
+  <div class="icon-box" onclick="goToPage('2year.html')" role="button" tabindex="0" aria-label="Intro">
+    <i class="fa-solid fa-book-open"></i>
+    <span>2 Year - Tamil</span>
+  </div>
+  
+  <div class="icon-box" onclick="goToPage('tools_entry.html')" role="button" tabindex="0" aria-label="Short Notes">
+    <i class="fa-solid fa-note-sticky"></i>
+    <span>Add Tools Details</span>
+  </div>
+  
+  <div class="icon-box" onclick="goToPage('tools_view.html')" role="button" tabindex="0" aria-label="Details">
+    <i class="fa-solid fa-list-ul"></i>
+    <span>Tools Details</span>
+  </div>
+  
+  <!-- Software Info -->
+  <div class="icon-box" onclick="goToPage('info.html')" role="button" tabindex="0" aria-label="Intro">
+     <i class="fa-solid fa-laptop-code"></i>
+    <span>Software Info</span>
+  </div>
+
+</div>
+
+<footer>
+    Sastha Software | Call : (+91) 6383003056
+</footer>
+
+<script>
+  function goToPage(page) {
+    window.location.href = page;
+  }
+
+  // ✅ Logout function
+  function logout() {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "login.html";
+  }
+
+  // ✅ Prevent access if not logged in
+  window.onload = function () {
+    const savedUser = localStorage.getItem("loggedInUser");
+    if (!savedUser) {
+      window.location.href = "login.html";
+    }
+  };
+
+  // Keyboard accessibility
+  document.querySelectorAll('.icon-box').forEach(box => {
+    box.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

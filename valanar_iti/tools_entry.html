@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sastha ITI Tools Register</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 15px; background:#f5f5f5; margin:0; }
+  .card { background:white; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.2); margin-bottom:20px; }
+  h2 { margin-top:0; font-size:18px; color:black;text-align:center; }
+  h1 { margin-top:0; font-size:18px; color:#007bff;text-align:center; }
+
+  input, textarea, select { 
+    width:90%; padding:10px; margin:6px 0; 
+    border:1px solid #ccc; border-radius:6px; font-size:14px;
+  }
+
+  button { 
+    background:#007bff; color:white; border:none; 
+    padding:10px 14px; border-radius:6px; cursor:pointer; 
+    margin:4px 2px; font-size:14px;
+  }
+  button:hover { background:#0056b3; }
+  
+  img.preview { max-width:120px; margin-top:10px; display:block; border:1px solid #ddd; border-radius:6px; }
+
+  table { width:100%; border-collapse:collapse; margin-top:15px; font-size:14px; }
+  th, td { border:1px solid #ccc; padding:8px; text-align:center; }
+  th { background:#007bff; color:white; }
+  
+  /* Responsive Table */
+  .table-container { overflow-x:auto; }
+  @media (max-width: 768px) {
+    table { font-size:12px; }
+    th, td { padding:6px; }
+    button { padding:6px 10px; font-size:12px; }
+    img.preview { max-width:80px; }
+  }
+
+  #loading { display:none; text-align:center; margin:10px; font-weight:bold; color:green; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>VALANAR ITI KURUVIKULAM</h1><br>
+  <h2>Add New Tools Details</h2>
+  <input type="hidden" id="rowIndex" />
+
+  <input type="file" id="imageInput" accept="image/*" />
+  <img id="preview" class="preview" />
+
+  <input type="text" id="toolNameEng" placeholder="Tool Name (English)" />
+  <input type="text" id="toolNameTam" placeholder="Tool Name (Tamil)" />
+  <input type="text" id="tradeName" placeholder="Trade Name" />
+  <input type="text" id="staffName" placeholder="Staff Name" />
+  <input type="text" id="staffMobile" placeholder="Staff Mobile Number" />
+  <textarea id="specs" placeholder="Specifications"></textarea>
+  <input type="number" id="quantity" placeholder="Must Have Quantity" />
+  <input type="text" id="remark" placeholder="Remark" />
+  <input type="date" id="date" />
+
+  <button onclick="saveData()"> Save</button>
+  <button onclick="resetForm()">Clear</button>
+  <div id="loading"> Please wait...</div>
+</div>
+
+<div class="card">
+  <h2>Tools List</h2>
+  <div class="table-container">
+    <table id="toolsTable">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>English</th>
+          <th>Tamil</th>
+          <th>Trade</th>
+          <th>Staff</th>
+          <th>Mobile</th>
+          <th>Specs</th>
+          <th>Qty</th>
+          <th>Remark</th>
+          <th>Date</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbzHnsH4q2uMUv2nUYFnBJAfVof1wYVMIfCHoEBFH9VdvnZaSconYPi79XQw8InhFJq6/exec";
+let base64Image = "";
+
+// Convert image to Base64 & compress under 200KB
+document.getElementById("imageInput").addEventListener("change", function(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function(event) {
+    const img = new Image();
+    img.src = event.target.result;
+    img.onload = function() {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const maxWidth = 400;
+      const scale = maxWidth / img.width;
+      canvas.width = maxWidth;
+      canvas.height = img.height * scale;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      base64Image = canvas.toDataURL("image/jpeg", 0.7);
+      document.getElementById("preview").src = base64Image;
+    }
+  }
+});
+
+// Format date dd-mmm-yyyy
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  return d.toLocaleDateString("en-GB", options).replace(/ /g, "-");
+}
+
+function saveData() {
+  document.getElementById("loading").style.display = "block";
+  const data = {
+    action: "save",
+    rowIndex: document.getElementById("rowIndex").value,
+    image: base64Image,
+    toolNameEng: document.getElementById("toolNameEng").value,
+    toolNameTam: document.getElementById("toolNameTam").value,
+    tradeName: document.getElementById("tradeName").value,
+    staffName: document.getElementById("staffName").value,
+    staffMobile: document.getElementById("staffMobile").value,
+    specs: document.getElementById("specs").value,
+    quantity: document.getElementById("quantity").value,
+    remark: document.getElementById("remark").value,
+    date: document.getElementById("date").value
+  };
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  }).then(res => res.json()).then(r => {
+    document.getElementById("loading").style.display = "none";
+    alert("Saved Successfully!");
+    resetForm();
+    loadData();
+  }).catch(err => {
+    document.getElementById("loading").style.display = "none";
+    alert("Error: " + err);
+  });
+}
+
+function loadData() {
+  document.getElementById("loading").style.display = "block";
+  fetch(scriptURL)
+    .then(res => res.json())
+    .then(data => {
+      let rows = "";
+      data.forEach(item => {
+        rows += `
+          <tr>
+            <td><img src="${item.image}" width="50"/></td>
+            <td>${item.toolNameEng}</td>
+            <td>${item.toolNameTam}</td>
+            <td>${item.tradeName}</td>
+            <td>${item.staffName}</td>
+            <td>${item.staffMobile}</td>
+            <td>${item.specs}</td>
+            <td>${item.quantity}</td>
+            <td>${item.remark}</td>
+            <td>${formatDate(item.date)}</td>
+            <td><button onclick='editData(${JSON.stringify(item)})'> Edit</button></td>
+            <td><button onclick='deleteData(${item.rowIndex})'> Delete</button></td>
+          </tr>
+        `;
+      });
+      document.querySelector("#toolsTable tbody").innerHTML = rows;
+      document.getElementById("loading").style.display = "none";
+    })
+    .catch(err => {
+      document.getElementById("loading").style.display = "none";
+      alert("Error loading data: " + err);
+    });
+}
+
+function editData(item) {
+  document.getElementById("rowIndex").value = item.rowIndex;
+  document.getElementById("toolNameEng").value = item.toolNameEng;
+  document.getElementById("toolNameTam").value = item.toolNameTam;
+  document.getElementById("tradeName").value = item.tradeName;
+  document.getElementById("staffName").value = item.staffName;
+  document.getElementById("staffMobile").value = item.staffMobile;
+  document.getElementById("specs").value = item.specs;
+  document.getElementById("quantity").value = item.quantity;
+  document.getElementById("remark").value = item.remark;
+  document.getElementById("date").value = item.date;
+  document.getElementById("preview").src = item.image;
+  base64Image = item.image;
+}
+
+function deleteData(rowIndex) {
+  if (!confirm("Are you sure you want to delete this record?")) return;
+  document.getElementById("loading").style.display = "block";
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify({ action: "delete", rowIndex: rowIndex })
+  }).then(res => res.json()).then(r => {
+    document.getElementById("loading").style.display = "none";
+    alert(" Deleted Successfully!");
+    loadData();
+  }).catch(err => {
+    document.getElementById("loading").style.display = "none";
+    alert("Error deleting: " + err);
+  });
+}
+
+function resetForm() {
+  document.getElementById("rowIndex").value = "";
+  document.querySelectorAll("input, textarea").forEach(el => el.value = "");
+  document.getElementById("preview").src = "";
+  base64Image = "";
+}
+loadData();
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sastha ITI Tools Register - View Only</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 15px; background:white; margin:0; }
+  h2 { margin:10px 0; font-size:20px; color:#00cecb; text-align:center; }
+
+  /* Filter Box */
+  .filter-box {
+    text-align:center;
+    margin: 10px 0 20px;
+  }
+  select {
+    padding:8px 12px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:14px;
+    width: 80%;
+    max-width: 300px;
+  }
+
+  /* Product Grid */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 10px;
+  }
+
+  @media(max-width:768px){
+    .product-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.6s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+  .product-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .product-card h3 { font-size: 16px; color: #007bff; margin: 6px 0; }
+  .product-card p { font-size: 13px; color: #444; margin: 4px 0; }
+
+  /* Full-screen detail */
+  .product-detail {
+    background:white;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    padding:20px;
+    margin:10px;
+    animation: fadeIn 0.6s ease;
+  }
+  .product-detail img {
+    max-width:250px;
+    border-radius:12px;
+    display:block;
+    margin: 0 auto 15px;
+  }
+  .product-detail h3 {
+    font-size:22px;
+    color:#007bff;
+    margin-bottom:10px;
+    text-align:center;
+  }
+  .product-detail p {
+    font-size:15px;
+    margin:6px 0;
+    color:#333;
+  }
+
+  @keyframes fadeIn {
+    from { opacity:0; transform: scale(0.9);}
+    to { opacity:1; transform: scale(1);}
+  }
+
+  #loading { text-align:center; font-weight:bold; color:green; margin:10px; }
+</style>
+</head>
+<body>
+
+<h2>VALANAR ITI KURUVIKULAM</h2>
+
+<div class="filter-box">
+  <select id="filterSelect" onchange="applyFilter()">
+    <option value="">-- Show All Tools --</option>
+  </select>
+</div>
+
+<div id="loading"> Loading Tools...</div>
+<div id="toolsGrid" class="product-grid"></div>
+<div id="toolDetail"></div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbzHnsH4q2uMUv2nUYFnBJAfVof1wYVMIfCHoEBFH9VdvnZaSconYPi79XQw8InhFJq6/exec";
+let allTools = [];
+
+// Format date dd-mmm-yyyy
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  return d.toLocaleDateString("en-GB", options).replace(/ /g, "-");
+}
+
+function loadData() {
+  fetch(scriptURL)
+    .then(res => res.json())
+    .then(data => {
+      allTools = data;
+      populateFilter(data);
+      renderTools(data);
+      document.getElementById("loading").style.display = "none";
+    })
+    .catch(err => {
+      document.getElementById("loading").innerText = "❌ Error loading data: " + err;
+    });
+}
+
+function populateFilter(data) {
+  let select = document.getElementById("filterSelect");
+  let names = [...new Set(data.map(item => item.toolNameEng).filter(n => n))].sort();
+  names.forEach(name => {
+    let opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    select.appendChild(opt);
+  });
+}
+
+function renderTools(tools) {
+  document.getElementById("toolDetail").innerHTML = ""; // hide detail
+  let cards = "";
+  tools.forEach(item => {
+    cards += `
+      <div class="product-card">
+        <img src="${item.image}" alt="${item.toolNameEng}">
+        <h3>${item.toolNameEng}</h3>
+        <p><b>Tamil:</b> ${item.toolNameTam}</p>
+        <p><b>Trade:</b> ${item.tradeName}</p>
+        <p><b>Qty:</b> ${item.quantity}</p>
+      </div>
+    `;
+  });
+  document.getElementById("toolsGrid").innerHTML = cards;
+}
+
+function renderDetail(item) {
+  document.getElementById("toolsGrid").innerHTML = ""; // hide grid
+  let detail = `
+    <div class="product-detail">
+      <img src="${item.image}" alt="${item.toolNameEng}">
+      <h3>${item.toolNameEng}</h3>
+      <p><b>Tamil Name:</b> ${item.toolNameTam}</p>
+      <p><b>Trade:</b> ${item.tradeName}</p>
+      <p><b>Staff:</b> ${item.staffName} (${item.staffMobile})</p>
+      <p><b>Quantity:</b> ${item.quantity}</p>
+      <p><b>Specifications:</b> ${item.specs}</p>
+      <p><b>Remark:</b> ${item.remark}</p>
+      <p><b>Date:</b> ${formatDate(item.date)}</p>
+    </div>
+  `;
+  document.getElementById("toolDetail").innerHTML = detail;
+}
+
+function applyFilter() {
+  let selected = document.getElementById("filterSelect").value;
+  if (selected === "") {
+    renderTools(allTools);
+  } else {
+    let filtered = allTools.filter(item => item.toolNameEng === selected);
+    if(filtered.length > 0) renderDetail(filtered[0]);
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>

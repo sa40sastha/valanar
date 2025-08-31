@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fridge Working Principle</title>
+<style>
+  :root {
+    --blue:#00cecb;
+    --red:#ff3333;
+    --light:#f4faff;
+    --white:#ffffff;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    margin:0;
+    background: var(--light);
+    color:#222;
+    text-align:center;
+  }
+  header {
+    background:linear-gradient(90deg, var(--blue), #063a8a);
+    color:var(--white);
+    padding:15px;
+    font-size:22px;
+    font-weight:bold;
+  }
+  .lang-select {
+    margin:15px;
+    padding:8px;
+    font-size:16px;
+    border-radius:8px;
+  }
+  .container {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+    padding:20px;
+  }
+  /* --- Diagram --- */
+  .diagram {
+    position:relative;
+    width:340px; height:420px;
+    background:#fff;
+    border:2px solid var(--blue);
+    border-radius:12px;
+    padding:10px;
+  }
+  .part {
+    position:absolute;
+    font-size:14px;
+    font-weight:bold;
+    background:var(--blue);
+    color:white;
+    padding:3px 6px;
+    border-radius:6px;
+  }
+  .comp{bottom:10px; left:120px;}
+  .cond{top:40px; right:10px;}
+  .expv{top:180px; right:120px;}
+  .evap{top:40px; left:10px;}
+
+  /* Pipe rectangle */
+  .pipe {
+    position:absolute;
+    width:260px; height:320px;
+    top:40px; left:30px;
+    border:3px solid var(--blue);
+    border-radius:20px;
+  }
+
+  /* Moving refrigerant dot */
+  .dot {
+    width:18px; height:18px;
+    border-radius:50%;
+    position:absolute;
+    animation: cycle 12s linear infinite;
+  }
+  @keyframes cycle {
+    0%   {top:300px; left:130px; background:var(--red);}   /* compressor hot gas */
+    20%  {top:40px; left:260px; background:var(--red);}    /* condenser */
+    40%  {top:40px; left:30px; background:var(--blue);}    /* cooled liquid */
+    60%  {top:180px; left:130px; background:var(--blue);}  /* expansion valve */
+    80%  {top:300px; left:130px; background:var(--blue);}  /* cold gas */
+    100% {top:300px; left:130px; background:var(--red);}   /* back hot gas */
+  }
+
+  /* Arrows */
+  .arrow {
+    position:absolute;
+    font-size:18px;
+    font-weight:bold;
+    color:var(--blue);
+    animation: blink 1s infinite alternate;
+  }
+  .a1{top:300px; left:200px; transform:rotate(-90deg);} /* up */
+  .a2{top:40px; left:150px;} /* left */
+  .a3{top:120px; left:40px; transform:rotate(90deg);} /* down */
+  .a4{top:250px; left:80px;} /* right */
+
+  @keyframes blink {
+    from{opacity:0.2;}
+    to{opacity:1;}
+  }
+
+  /* --- Steps --- */
+  .steps {
+    max-width:420px;
+    margin:auto;
+    text-align:left;
+    padding:10px;
+  }
+  .steps li {
+    background:#fff;
+    margin:8px 0;
+    padding:10px;
+    border-left:5px solid var(--blue);
+    border-radius:6px;
+    font-size:16px;
+  }
+</style>
+</head>
+<body>
+
+<header>Refrigerator Working Principle</header>
+
+<select class="lang-select" onchange="changeLang(this.value)">
+  <option value="en">English</option>
+  <option value="ta">தமிழ்</option>
+</select>
+
+<div class="container">
+  <!-- Diagram -->
+  <div class="diagram">
+    <div class="pipe"></div>
+    <div class="dot"></div>
+    <div class="part comp">Compressor</div>
+    <div class="part cond">Condenser</div>
+    <div class="part expv">Expansion Valve</div>
+    <div class="part evap">Evaporator</div>
+
+    <!-- arrows -->
+    <div class="arrow a1">↑</div>
+    <div class="arrow a2">←</div>
+    <div class="arrow a3">↓</div>
+    <div class="arrow a4">→</div>
+  </div>
+
+  <!-- Steps -->
+  <ul class="steps" id="steps"></ul>
+</div>
+
+<script>
+  const steps = {
+    en: [
+      "1. Compressor compresses refrigerant gas to high pressure.",
+      "2. High-pressure hot gas flows to condenser coils.",
+      "3. Condenser releases heat to atmosphere.",
+      "4. Refrigerant turns into high-pressure liquid.",
+      "5. Liquid refrigerant passes through expansion valve.",
+      "6. Sudden pressure drop makes refrigerant cold.",
+      "7. Cold refrigerant enters evaporator coils.",
+      "8. Evaporator absorbs heat from inside fridge.",
+      "9. Refrigerant becomes low-pressure gas again.",
+      "10. Cycle repeats continuously to maintain cooling."
+    ],
+    ta: [
+      "1. கம்பிரசர் குளிர்மருந்து வாயுவை அதிக அழுத்தத்திற்கு சுருக்குகிறது.",
+      "2. அதிக அழுத்த வெப்ப வாயு கண்டென்சர் காயில்களில் செல்கிறது.",
+      "3. கண்டென்சர் வெப்பத்தை வெளியில் வெளியேற்றுகிறது.",
+      "4. குளிர்மருந்து திரவமாக மாறுகிறது.",
+      "5. திரவம் எக்ஸ்பான்ஷன் வால்வில் செல்கிறது.",
+      "6. அழுத்தம் குறைந்து குளிர்ச்சி உருவாகிறது.",
+      "7. குளிர்ந்த குளிர்மருந்து ஈவாபரேட்டர் காயில்களில் செல்கிறது.",
+      "8. ஈவாபரேட்டர் பீரங்கியின் உள்ளே உள்ள வெப்பத்தை உறிஞ்சுகிறது.",
+      "9. குளிர்மருந்து மீண்டும் குறைந்த அழுத்த வாயுவாக மாறுகிறது.",
+      "10. இந்த சுழற்சி தொடர்ந்து நடைபெற்று பீரங்கியை குளிர்ச்சியாக வைத்திருக்கிறது."
+    ]
+  };
+
+  function changeLang(lang) {
+    let list=document.getElementById("steps");
+    list.innerHTML="";
+    steps[lang].forEach(text=>{
+      let li=document.createElement("li");
+      li.innerText=text;
+      list.appendChild(li);
+    });
+  }
+  // Default English
+  changeLang("en");
+</script>
+
+</body>
+</html>
